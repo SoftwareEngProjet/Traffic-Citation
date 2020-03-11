@@ -21,6 +21,7 @@ import java.util.Objects;
 
 @Entity
 public class Vehicle {
+    // Variables
     private Integer id;
     private String license;
     private String make;
@@ -29,6 +30,39 @@ public class Vehicle {
     private Byte wanted;
     private Integer driverId;
 
+    // No-arg Constructor
+    public Vehicle() {
+        id = 0;
+        license = "";
+        make = "";
+        stolen = 0;
+        registered = 0;
+        wanted = 0;
+        driverId = 0;
+    }
+
+    // Multi-arg Constructor
+    public Vehicle(Integer id, String license, String make, Byte stolen, Byte registered, Byte wanted, Integer driverId) {
+        this.id = id;
+        this.license = license;
+        this.make = make;
+        this.stolen = stolen;
+        this.registered = registered;
+        this.wanted = wanted;
+        this.driverId = driverId;
+    }
+
+    /* --- Class Methods Below ---
+     * 1. ID
+     * 2. License
+     * 3. Make
+     * 4. Stolen
+     * 5. Registered
+     * 6. Wanted
+     * 7. DriverID
+     */
+
+    // ID
     @Id
     @Column(name = "id")
     public Integer getId() {
@@ -39,6 +73,7 @@ public class Vehicle {
         this.id = id;
     }
 
+    // License
     @Basic
     @Column(name = "license")
     public String getLicense() {
@@ -49,6 +84,7 @@ public class Vehicle {
         this.license = license;
     }
 
+    // Make
     @Basic
     @Column(name = "make")
     public String getMake() {
@@ -59,6 +95,7 @@ public class Vehicle {
         this.make = make;
     }
 
+    // Stolen
     @Basic
     @Column(name = "stolen")
     public Byte getStolen() {
@@ -69,6 +106,7 @@ public class Vehicle {
         this.stolen = stolen;
     }
 
+    // Registered
     @Basic
     @Column(name = "registered")
     public Byte getRegistered() {
@@ -79,6 +117,7 @@ public class Vehicle {
         this.registered = registered;
     }
 
+    // Wanted
     @Basic
     @Column(name = "wanted")
     public Byte getWanted() {
@@ -89,6 +128,7 @@ public class Vehicle {
         this.wanted = wanted;
     }
 
+    // DriverID
     @Basic
     @Column(name = "driver_id")
     public Integer getDriverId() {
@@ -97,24 +137,5 @@ public class Vehicle {
 
     public void setDriverId(Integer driverId) {
         this.driverId = driverId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Vehicle vehicle = (Vehicle) o;
-        return Objects.equals(id, vehicle.id) &&
-                Objects.equals(license, vehicle.license) &&
-                Objects.equals(make, vehicle.make) &&
-                Objects.equals(stolen, vehicle.stolen) &&
-                Objects.equals(registered, vehicle.registered) &&
-                Objects.equals(wanted, vehicle.wanted) &&
-                Objects.equals(driverId, vehicle.driverId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, license, make, stolen, registered, wanted, driverId);
     }
 }

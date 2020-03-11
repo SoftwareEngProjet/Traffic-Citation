@@ -23,6 +23,7 @@ import java.util.Objects;
 
 @Entity
 public class Offense {
+    // Variables
     private Integer id;
     private Date date;
     private BigDecimal fine;
@@ -30,6 +31,36 @@ public class Offense {
     private Integer officerId;
     private Integer driverId;
 
+    // No-arg Constructor
+    public Offense() {
+        id = 0;
+        date = new Date(new java.util.Date().getDate());
+        fine = BigDecimal.ZERO;
+        paid = 0;
+        officerId = 0;
+        driverId = 0;
+    }
+
+    // Multi-arg Constructor
+    public Offense(Integer id, Date date, BigDecimal fine, Byte paid, Integer officerId, Integer driverId) {
+        this.id = id;
+        this.date = date;
+        this.fine = fine;
+        this.paid = paid;
+        this.officerId = officerId;
+        this.driverId = driverId;
+    }
+
+    /* --- Class Methods Below ---
+     * 1. ID
+     * 2. Date
+     * 3. Fine
+     * 4. Paid
+     * 5. Officer ID
+     * 6. Driver ID
+     */
+
+    // ID
     @Id
     @Column(name = "id")
     public Integer getId() {
@@ -40,6 +71,7 @@ public class Offense {
         this.id = id;
     }
 
+    // Date
     @Basic
     @Column(name = "date")
     public Date getDate() {
@@ -50,6 +82,7 @@ public class Offense {
         this.date = date;
     }
 
+    // Fine
     @Basic
     @Column(name = "fine")
     public BigDecimal getFine() {
@@ -60,6 +93,7 @@ public class Offense {
         this.fine = fine;
     }
 
+    // Paid
     @Basic
     @Column(name = "paid")
     public Byte getPaid() {
@@ -70,6 +104,7 @@ public class Offense {
         this.paid = paid;
     }
 
+    // Officer ID
     @Basic
     @Column(name = "officer_id")
     public Integer getOfficerId() {
@@ -80,6 +115,7 @@ public class Offense {
         this.officerId = officerId;
     }
 
+    // Driver ID
     @Basic
     @Column(name = "driver_id")
     public Integer getDriverId() {
@@ -88,23 +124,5 @@ public class Offense {
 
     public void setDriverId(Integer driverId) {
         this.driverId = driverId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Offense offense = (Offense) o;
-        return Objects.equals(id, offense.id) &&
-                Objects.equals(date, offense.date) &&
-                Objects.equals(fine, offense.fine) &&
-                Objects.equals(paid, offense.paid) &&
-                Objects.equals(officerId, offense.officerId) &&
-                Objects.equals(driverId, offense.driverId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, date, fine, paid, officerId, driverId);
     }
 }

@@ -22,6 +22,7 @@ import java.util.Objects;
 
 @Entity
 public class Driver {
+    // Variables
     private Integer id;
     private String name;
     private Byte suspended;
@@ -29,6 +30,37 @@ public class Driver {
     private Date birthday;
     private String license;
 
+    // No-arg Constructor
+    public Driver() {
+        id = 0;
+        name = "";
+        suspended = 0;
+        revoked = 0;
+        birthday = new Date(new java.util.Date().getDate());
+        license = "";
+    }
+
+    // Multi-arg Constructor
+    public Driver(Integer id, String name, Byte suspended, Byte revoked, Date birthday, String license) {
+        this.id = id;
+        this.name = name;
+        this.suspended = suspended;
+        this.revoked = revoked;
+        this.birthday = birthday;
+        this.license = license;
+    }
+
+    /* --- Class Methods Below ---
+     * 1. ID
+     * 2. Name
+     * 3. Suspended
+     * 4. Revoked
+     * 5. Birthday
+     * 6. License
+     * 7. Other
+     */
+
+    // ID
     @Id
     @Column(name = "id")
     public Integer getId() {
@@ -39,6 +71,7 @@ public class Driver {
         this.id = id;
     }
 
+    // Name
     @Basic
     @Column(name = "name")
     public String getName() {
@@ -49,6 +82,7 @@ public class Driver {
         this.name = name;
     }
 
+    // Suspended
     @Basic
     @Column(name = "suspended")
     public Byte getSuspended() {
@@ -59,6 +93,7 @@ public class Driver {
         this.suspended = suspended;
     }
 
+    // Revoked
     @Basic
     @Column(name = "revoked")
     public Byte getRevoked() {
@@ -69,6 +104,7 @@ public class Driver {
         this.revoked = revoked;
     }
 
+    // Birthday
     @Basic
     @Column(name = "birthday")
     public Date getBirthday() {
@@ -79,6 +115,7 @@ public class Driver {
         this.birthday = birthday;
     }
 
+    // Licenses
     @Basic
     @Column(name = "license")
     public String getLicense() {
@@ -89,21 +126,17 @@ public class Driver {
         this.license = license;
     }
 
+    // Other
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Driver driver = (Driver) o;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Driver driver = (Driver) obj;
         return Objects.equals(id, driver.id) &&
                 Objects.equals(name, driver.name) &&
                 Objects.equals(suspended, driver.suspended) &&
                 Objects.equals(revoked, driver.revoked) &&
                 Objects.equals(birthday, driver.birthday) &&
                 Objects.equals(license, driver.license);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, suspended, revoked, birthday, license);
     }
 }
