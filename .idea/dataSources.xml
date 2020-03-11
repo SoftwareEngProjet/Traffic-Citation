@@ -12,5 +12,15 @@
       <configured-by-url>true</configured-by-url>
       <jdbc-driver>java.sql.Driver</jdbc-driver>
     </data-source>
+    <data-source source="LOCAL" name="NewPersistenceUnit/Hibernate" uuid="88adb4c9-bcb1-4638-b9c2-17f64396a834">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/fern/IdeaProjects/Traffic-Citation/src/META-INF/persistence.xml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://34.69.42.78:3306/mydb</jdbc-url>
+    </data-source>
   </component>
 </project>
