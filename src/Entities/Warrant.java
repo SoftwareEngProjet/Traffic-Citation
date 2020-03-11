@@ -1,5 +1,18 @@
+/******************************************************************************
+ * File Name: Warrant.java                                                    *
+ * Initial Version                                                            *
+ ******************************************************************************
+ * Warrant object instantiated when a driver commits a crime, from officer    *
+ * (c) 2020 Uncanny-Varsett Traffic Citation                                  *
+ ******************************************************************************
+ * Created By: Matt Ferlaino                                                  *
+ * Date:       Mar 11th 2020                                                  *
+ ******************************************************************************/
+
+// Packages
 package Entities;
 
+// Imports
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;

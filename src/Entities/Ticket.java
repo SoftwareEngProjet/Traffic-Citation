@@ -1,5 +1,18 @@
+/******************************************************************************
+ * File Name: Ticket.java                                                     *
+ * Initial Version                                                            *
+ ******************************************************************************
+ * Ticket object used when a ticket is being assigned to a driver object      *
+ * (c) 2020 Uncanny-Varsett Traffic Citation                                  *
+ ******************************************************************************
+ * Created By: Matt Ferlaino                                                  *
+ * Date:       Mar 11th 2020                                                  *
+ ******************************************************************************/
+
+// Packages
 package Entities;
 
+// Imports
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;

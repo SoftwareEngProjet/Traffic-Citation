@@ -1,5 +1,18 @@
+/******************************************************************************
+ * File Name: TrafficCodes.java                                               *
+ * Initial Version                                                            *
+ ******************************************************************************
+ * Traffic violations are represented in the traffic codes object for citation*
+ * (c) 2020 Uncanny-Varsett Traffic Citation                                  *
+ ******************************************************************************
+ * Created By: Matt Ferlaino                                                  *
+ * Date:       Mar 11th 2020                                                  *
+ ******************************************************************************/
+
+// Entities
 package Entities;
 
+// Imports
 import javax.persistence.*;
 import java.util.Objects;
 

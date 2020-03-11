@@ -1,5 +1,18 @@
+/******************************************************************************
+ * File Name: Offense.java                                                    *
+ * Initial Version                                                            *
+ ******************************************************************************
+ * Offense object which is filled by an officer for the traffic violations    *
+ * (c) 2020 Uncanny-Varsett Traffic Citation                                  *
+ ******************************************************************************
+ * Created By: Matt Ferlaino                                                  *
+ * Date:       Mar 11th 2020                                                  *
+ ******************************************************************************/
+
+// Packages
 package Entities;
 
+// Imports
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,5 +1,18 @@
+/******************************************************************************
+ * File Name: School.java                                                     *
+ * Initial Version                                                            *
+ ******************************************************************************
+ * School object which represents driving school which is an option when cited*
+ * (c) 2020 Uncanny-Varsett Traffic Citation                                  *
+ ******************************************************************************
+ * Created By: Matt Ferlaino                                                  *
+ * Date:       Mar 11th 2020                                                  *
+ ******************************************************************************/
+
+// Package
 package Entities;
 
+// Imports
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;

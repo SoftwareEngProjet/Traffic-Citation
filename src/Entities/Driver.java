@@ -1,5 +1,18 @@
+/******************************************************************************
+ * File Name: Driver.java                                                     *
+ * Initial Version                                                            *
+ ******************************************************************************
+ * Driver object which holds mainly all the related data                      *
+ * (c) 2020 Uncanny-Varsett Traffic Citation                                  *
+ ******************************************************************************
+ * Created By: Matt Ferlaino                                                  *
+ * Date:       Mar 11th 2020                                                  *
+ ******************************************************************************/
+
+// Packages
 package Entities;
 
+// Imports
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;

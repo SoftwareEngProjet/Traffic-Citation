@@ -1,5 +1,18 @@
+/******************************************************************************
+ * File Name: Officer.java                                                    *
+ * Initial Version                                                            *
+ ******************************************************************************
+ * Officer object used to create officers which are required to cite people   *
+ * (c) 2020 Uncanny-Varsett Traffic Citation                                  *
+ ******************************************************************************
+ * Created By: Matt Ferlaino                                                  *
+ * Date:       Mar 11th 2020                                                  *
+ ******************************************************************************/
+
+// Package
 package Entities;
 
+// Import
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
