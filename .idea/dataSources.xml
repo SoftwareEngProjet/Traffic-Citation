@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+<component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="MySQL - mydb@34.69.42.78" uuid="c9f0c8f5-89ce-4917-934a-35dcb3bcd826">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://34.69.42.78:3306/mydb</jdbc-url>
+        <driver-ref>mysql.8</driver-ref>
+        <synchronize>true</synchronize>
+        <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+        <jdbc-url>jdbc:mysql://34.69.42.78:3306/mydb</jdbc-url>
     </data-source>
     <data-source source="LOCAL" name="User Data Source -" uuid="088bcad3-ccee-4cc8-b5d7-bbb4af1f8e90">
-      <synchronize>true</synchronize>
-      <configured-by-url>true</configured-by-url>
-      <jdbc-driver>java.sql.Driver</jdbc-driver>
+        <synchronize>true</synchronize>
+        <configured-by-url>true</configured-by-url>
+        <jdbc-driver>java.sql.Driver</jdbc-driver>
     </data-source>
-  </component>
+</component>
 </project>
