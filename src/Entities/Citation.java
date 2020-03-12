@@ -1,16 +1,49 @@
+/******************************************************************************
+ * File Name: Citation.java                                                   *
+ * Initial Version                                                            *
+ ******************************************************************************
+ * Citation object containing data pertaining to a citation from an officer   *
+ * (c) 2020 Uncanny-Varsett Traffic Citation                                  *
+ ******************************************************************************
+ * Created By: Matt Ferlaino                                                  *
+ * Date:       Mar 11th 2020                                                  *
+ ******************************************************************************/
+
+// Packages
 package Entities;
 
+// Imports
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.sql.Date;
 import java.util.Objects;
 
 @Entity
 public class Citation {
+    // Variables
     private Integer offenseId;
     private Integer vehicleId;
 
+    // No-arg Constructor
+    public Citation() {
+        offenseId = 0;
+        vehicleId = 0;
+    }
+
+    // Multi-arg Constructor
+    public Citation(Integer offenseId, Integer vehicleId) {
+        this.offenseId = offenseId;
+        this.vehicleId = vehicleId;
+    }
+
+    /* --- Class Methods Below ---
+     * 1. Offense ID
+     * 2. Vehicle ID
+     */
+
+    // Offense ID
     @Id
     @Column(name = "offense_id")
     public Integer getOffenseId() {
@@ -21,6 +54,7 @@ public class Citation {
         this.offenseId = offenseId;
     }
 
+    // Vehicle ID
     @Basic
     @Column(name = "vehicle_id")
     public Integer getVehicleId() {
@@ -29,19 +63,5 @@ public class Citation {
 
     public void setVehicleId(Integer vehicleId) {
         this.vehicleId = vehicleId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Citation citation = (Citation) o;
-        return Objects.equals(offenseId, citation.offenseId) &&
-                Objects.equals(vehicleId, citation.vehicleId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(offenseId, vehicleId);
     }
 }

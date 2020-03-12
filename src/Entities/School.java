@@ -1,5 +1,18 @@
+/******************************************************************************
+ * File Name: School.java                                                     *
+ * Initial Version                                                            *
+ ******************************************************************************
+ * School object which represents driving school which is an option when cited*
+ * (c) 2020 Uncanny-Varsett Traffic Citation                                  *
+ ******************************************************************************
+ * Created By: Matt Ferlaino                                                  *
+ * Date:       Mar 11th 2020                                                  *
+ ******************************************************************************/
+
+// Package
 package Entities;
 
+// Imports
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +22,36 @@ import java.util.Objects;
 
 @Entity
 public class School {
+    // Variables
     private Integer id;
     private Date dayOne;
     private Date dayTwo;
     private Integer driverId;
 
+    // No-arg Constructor
+    public School() {
+        id = 0;
+        dayOne = new Date(new java.util.Date().getDate());
+        dayTwo = new Date(new java.util.Date().getDate());
+        driverId = 0;
+    }
+
+    // Multi-arg Constructor
+    public School(Integer id, Date dayOne, Date dayTwo, Integer driverId) {
+        this.id = id;
+        this.dayOne = dayOne;
+        this.dayTwo = dayTwo;
+        this.driverId = driverId;
+    }
+
+    /* --- Class Methods Below ---
+     * 1. ID
+     * 2. Day One
+     * 3. Day Two
+     * 4. Driver Id
+     */
+
+    // ID
     @Id
     @Column(name = "id")
     public Integer getId() {
@@ -24,6 +62,7 @@ public class School {
         this.id = id;
     }
 
+    // Day One
     @Basic
     @Column(name = "day_one")
     public Date getDayOne() {
@@ -34,6 +73,7 @@ public class School {
         this.dayOne = dayOne;
     }
 
+    // Day Two
     @Basic
     @Column(name = "day_two")
     public Date getDayTwo() {
@@ -44,6 +84,7 @@ public class School {
         this.dayTwo = dayTwo;
     }
 
+    // Driver Id
     @Basic
     @Column(name = "driver_id")
     public Integer getDriverId() {
@@ -52,21 +93,5 @@ public class School {
 
     public void setDriverId(Integer driverId) {
         this.driverId = driverId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        School school = (School) o;
-        return Objects.equals(id, school.id) &&
-                Objects.equals(dayOne, school.dayOne) &&
-                Objects.equals(dayTwo, school.dayTwo) &&
-                Objects.equals(driverId, school.driverId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, dayOne, dayTwo, driverId);
     }
 }

@@ -1,16 +1,50 @@
+/******************************************************************************
+ * File Name: Officer.java                                                    *
+ * Initial Version                                                            *
+ ******************************************************************************
+ * Officer object used to create officers which are required to cite people   *
+ * (c) 2020 Uncanny-Varsett Traffic Citation                                  *
+ ******************************************************************************
+ * Created By: Matt Ferlaino                                                  *
+ * Date:       Mar 11th 2020                                                  *
+ ******************************************************************************/
+
+// Package
 package Entities;
 
+// Import
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.Objects;
 
 @Entity
 public class Officer {
+    // Variables
     private Integer id;
     private String name;
 
+    // No-arg Constructor
+    public Officer() {
+        id = 0;
+        name = "";
+    }
+
+    // Multi-arg Constructor
+    public Officer(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    /* --- Class Methods Below ---
+     * 1. ID
+     * 2. Name
+     */
+
+    // ID
     @Id
     @Column(name = "id")
     public Integer getId() {
@@ -21,6 +55,7 @@ public class Officer {
         this.id = id;
     }
 
+    // Name
     @Basic
     @Column(name = "name")
     public String getName() {
@@ -29,19 +64,5 @@ public class Officer {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Officer officer = (Officer) o;
-        return Objects.equals(id, officer.id) &&
-                Objects.equals(name, officer.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
     }
 }
