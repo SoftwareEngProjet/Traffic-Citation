@@ -29,6 +29,8 @@ public class Main extends Application {
 
 
 
+
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -47,9 +49,17 @@ public class Main extends Application {
         panel.add(btnCreateNewDriver, 3, 2);
         panel.add(btnCreateNewVehicle, 3, 3);
 
+        btnShowCitations.setPrefWidth(150);
+        btnShowDrivers.setPrefWidth(150);
+        btnShowVehicles.setPrefWidth(150);
+        btnCreateNewCitation.setPrefWidth(150);
+        btnCreateNewDriver.setPrefWidth(150);
+        btnCreateNewVehicle.setPrefWidth(150);
+
 
 
         //Event handlers for when the buttons are pushed:
+        //These are event handlers for viewing data from the database.
         btnShowCitations.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 GridPane showCitationsPane = new GridPane();
@@ -81,13 +91,23 @@ public class Main extends Application {
             }
         });
 
+        btnCreateNewCitation.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                GridPane showNewCitationsPane = new GridPane();
+                Stage stage = new Stage();
+                stage.setTitle("Create New Citation");
+                stage.setScene(new Scene(showNewCitationsPane, 275, 450));
+                stage.show();
+            }
+        });
+
 
 
         panel.setAlignment(Pos.TOP_CENTER);
 
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Traffic Citations - Sault Ste. Marie");
-        primaryStage.setScene(new Scene(panel, 450, 300));
+        primaryStage.setScene(new Scene(panel, 500, 300));
         primaryStage.setResizable(false);
 
         primaryStage.show();
