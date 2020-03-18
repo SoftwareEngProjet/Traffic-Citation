@@ -108,8 +108,8 @@ public class Main extends Application {
                 showNewCitationsPane.add(newCitationDate, 1 , 2);
                 newCitationDate.setPrefWidth(150);
 
-                showNewCitationsPane.add(new Label("Fine Amount: "), 1, 2);
-                showNewCitationsPane.add(newCitationFine, 2, 2);
+                showNewCitationsPane.add(new Label("Fine Amount: "), 0, 3);
+                showNewCitationsPane.add(newCitationFine, 1, 3);
                 newCitationFine.setPrefWidth(150);
 
 
