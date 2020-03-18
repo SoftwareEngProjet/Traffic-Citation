@@ -28,6 +28,12 @@ public class Main extends Application {
    private Button btnCreateNewVehicle = new Button("Create New Vehicle");
 
 
+    private TextField newCitationDate = new TextField();
+    private TextField newCitationFine = new TextField();
+    private CheckBox isPaid = new CheckBox("Paid? (Check if yes.)");
+    private HBox isPaidHBox = new HBox(isPaid);
+    private TextField newCitationOfficerID = new TextField();
+    private TextField newCitaionVehicleID = new TextField();
 
 
 
@@ -91,10 +97,23 @@ public class Main extends Application {
             }
         });
 
+        //These event handlers are for adding new entities to the DB.
         btnCreateNewCitation.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 GridPane showNewCitationsPane = new GridPane();
                 Stage stage = new Stage();
+
+                showNewCitationsPane.add(new Label("Create New Citation: "), 0, 0);
+                showNewCitationsPane.add(new Label("Date of Offense: "), 0, 2);
+                showNewCitationsPane.add(newCitationDate, 1 , 2);
+                newCitationDate.setPrefWidth(150);
+
+                showNewCitationsPane.add(new Label("Fine Amount: "), 1, 2);
+                showNewCitationsPane.add(newCitationFine, 2, 2);
+                newCitationFine.setPrefWidth(150);
+
+
+
                 stage.setTitle("Create New Citation");
                 stage.setScene(new Scene(showNewCitationsPane, 275, 450));
                 stage.show();
