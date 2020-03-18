@@ -8,12 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.geometry.*;
-import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.stage.*;
-
-import java.io.IOException;
 
 
 public class Main extends Application {
@@ -22,10 +18,10 @@ public class Main extends Application {
    private Button btnShowDrivers = new Button("View All Drivers");
    private Button btnShowVehicles = new Button("View All Vehicles");
 
-
    private Button btnCreateNewCitation = new Button("Create New Citation");
    private Button btnCreateNewDriver = new Button("Create New Driver");
    private Button btnCreateNewVehicle = new Button("Create New Vehicle");
+
 
 
     private TextField newCitationDate = new TextField();
@@ -33,7 +29,18 @@ public class Main extends Application {
     private CheckBox isPaid = new CheckBox("Paid? (Check if yes.)");
     private HBox isPaidHBox = new HBox(isPaid);
     private TextField newCitationOfficerID = new TextField();
-    private TextField newCitaionVehicleID = new TextField();
+    private TextField newCitationDriverID = new TextField();
+    private TextField newCitationLicense = new TextField();
+    private TextField newCitationMake = new TextField();
+    private CheckBox isStolen = new CheckBox("Stolen? (Check if yes.)");
+    private HBox isStolenHBox = new HBox(isStolen);
+
+    private CheckBox isRegistered = new CheckBox("Registered? (Check if yes.)");
+    private HBox isRegisteredHbox = new HBox(isRegistered);
+
+    private CheckBox isWanted = new CheckBox("Wanted? (Check is yes.)");
+    private HBox isWantedHbox = new HBox(isWanted);
+    private Button newCitationSave = new Button("Save");
 
 
 
@@ -100,22 +107,47 @@ public class Main extends Application {
         //These event handlers are for adding new entities to the DB.
         btnCreateNewCitation.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                GridPane showNewCitationsPane = new GridPane();
+                GridPane newCitationsPane = new GridPane();
                 Stage stage = new Stage();
 
-                showNewCitationsPane.add(new Label("Create New Citation: "), 0, 0);
-                showNewCitationsPane.add(new Label("Date of Offense: "), 0, 2);
-                showNewCitationsPane.add(newCitationDate, 1 , 2);
+                newCitationsPane.add(new Label("Create New Citation: "), 0, 0);
+                newCitationsPane.add(new Label("Date of Offense: "), 0, 2);
+                newCitationsPane.add(newCitationDate, 1 , 2);
                 newCitationDate.setPrefWidth(150);
 
-                showNewCitationsPane.add(new Label("Fine Amount: "), 0, 3);
-                showNewCitationsPane.add(newCitationFine, 1, 3);
+                newCitationsPane.add(new Label("Fine Amount: "), 0, 3);
+                newCitationsPane.add(newCitationFine, 1, 3);
                 newCitationFine.setPrefWidth(150);
 
+                newCitationsPane.add(isPaidHBox, 1, 4);
+
+                newCitationsPane.add(new Label("Officer ID Number: "), 0, 5);
+                newCitationsPane.add(newCitationOfficerID, 1, 5);
+                newCitationOfficerID.setPrefWidth(150);
 
 
+                newCitationsPane.add(new Label("Driver ID Number: "), 0, 7);
+                newCitationsPane.add(newCitationDriverID, 1, 7);
+                newCitationDriverID.setPrefWidth(150);
+
+                newCitationsPane.add(new Label("Vehicle License: "), 0, 8);
+                newCitationsPane.add(newCitationLicense, 1, 8);
+                newCitationLicense.setPrefWidth(150);
+
+                newCitationsPane.add(new Label("Vehicle Make: "), 0, 9 );
+                newCitationsPane.add(newCitationMake, 1, 9);
+                newCitationMake.setPrefWidth(150);
+
+                newCitationsPane.add(isStolenHBox, 1, 10);
+                newCitationsPane.add(isRegisteredHbox, 1, 11);
+                newCitationsPane.add(isWantedHbox, 1, 12);
+                
+                newCitationsPane.add(newCitationSave, 1, 17);
+                //TODO: add event handler for this save button.
+
+                newCitationsPane.setVgap(5);
                 stage.setTitle("Create New Citation");
-                stage.setScene(new Scene(showNewCitationsPane, 275, 450));
+                stage.setScene(new Scene(newCitationsPane, 390, 450));
                 stage.show();
             }
         });
