@@ -1,6 +1,8 @@
 package UI;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 
+import java.io.IOException;
 
 
 public class Main extends Application {
@@ -29,10 +32,12 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+        //Create the environment itself.
         GridPane panel = new GridPane();
         panel.setHgap(5);
         panel.setVgap(5);
 
+        //Display all the buttons, and make a lable above those buttons.
         panel.add(new Label("Sault Ste. Marie Traffic Citations"), 2, 0);
         panel.add(btnShowCitations, 0, 1);
         panel.add(btnShowDrivers, 0, 2);
@@ -41,6 +46,40 @@ public class Main extends Application {
         panel.add(btnCreateNewCitation, 3, 1);
         panel.add(btnCreateNewDriver, 3, 2);
         panel.add(btnCreateNewVehicle, 3, 3);
+
+
+
+        //Event handlers for when the buttons are pushed:
+        btnShowCitations.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                GridPane showCitationsPane = new GridPane();
+                Stage stage = new Stage();
+                stage.setTitle("Traffic Citations");
+                stage.setScene(new Scene(showCitationsPane, 450, 300));
+                stage.show();
+            }
+        });
+
+
+        btnShowVehicles.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                GridPane showVehiclesPane = new GridPane();
+                Stage stage = new Stage();
+                stage.setTitle("All Vehicles");
+                stage.setScene(new Scene(showVehiclesPane, 450, 300));
+                stage.show();
+            }
+        });
+
+        btnShowDrivers.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                GridPane showDriversPane = new GridPane();
+                Stage stage = new Stage();
+                stage.setTitle("Show Drivers");
+                stage.setScene(new Scene(showDriversPane, 450, 300));
+                stage.show();
+            }
+        });
 
 
 
@@ -60,4 +99,6 @@ public class Main extends Application {
     public static void main(String[] args) {
         Application.launch();
     }
+
+
 }
