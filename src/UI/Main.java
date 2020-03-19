@@ -14,16 +14,16 @@ import javafx.scene.layout.*;
 
 public class Main extends Application {
 
+    //MAIN MENU BUTTONS:
    private Button btnShowCitations = new Button("View All Citations");
    private Button btnShowDrivers = new Button("View All Drivers");
    private Button btnShowVehicles = new Button("View All Vehicles");
-
    private Button btnCreateNewCitation = new Button("Create New Citation");
    private Button btnCreateNewDriver = new Button("Create New Driver");
    private Button btnCreateNewVehicle = new Button("Create New Vehicle");
 
 
-
+    //NEW CITATION BUTTONS AND TEXT FIELDS:
     private TextField newCitationDate = new TextField();
     private TextField newCitationFine = new TextField();
     private CheckBox isPaid = new CheckBox("Paid? (Check if yes.)");
@@ -34,13 +34,20 @@ public class Main extends Application {
     private TextField newCitationMake = new TextField();
     private CheckBox isStolen = new CheckBox("Stolen? (Check if yes.)");
     private HBox isStolenHBox = new HBox(isStolen);
-
     private CheckBox isRegistered = new CheckBox("Registered? (Check if yes.)");
     private HBox isRegisteredHbox = new HBox(isRegistered);
-
     private CheckBox isWanted = new CheckBox("Wanted? (Check is yes.)");
     private HBox isWantedHbox = new HBox(isWanted);
     private Button newCitationSave = new Button("Save");
+
+
+    //NEW DRIVER BUTTONS AND TEXT FIELDS
+    private TextField newDriverName = new TextField();
+    private CheckBox isSuspended = new CheckBox("Driver Suspended? (Check if yes.)");
+    private HBox getIsPaidHBox = new HBox(isSuspended);
+    private CheckBox isRevoked = new CheckBox("License Revoked? (Check if yes.) ");
+    private HBox isRevokedHBox = new HBox(isRevoked);
+    private TextField newDriverBirthday = new TextField();
 
 
 
@@ -143,7 +150,7 @@ public class Main extends Application {
                 newCitationsPane.add(isWantedHbox, 1, 12);
                 
                 newCitationsPane.add(newCitationSave, 1, 17);
-                //TODO: add event handler for this save button.
+
 
                 newCitationsPane.setVgap(5);
                 stage.setTitle("Create New Citation");
@@ -152,7 +159,30 @@ public class Main extends Application {
             }
         });
 
+        newCitationSave.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                //ATTN Matt: This is the save button for a new citation that you will need to manipulate for saving to a database.
+            }
+        });
 
+
+        btnCreateNewDriver.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                GridPane newDriversPane = new GridPane();
+                Stage stage = new Stage();
+
+                newDriversPane.add(new Label("Create New Citation"), 0, 0);
+                newDriversPane.add(new Label("Driver Name: "), 0, 2);
+                newDriversPane.add(newDriverName, 1, 2);
+
+
+
+                newDriversPane.setVgap(5);
+                stage.setTitle("Create New Driver");
+                stage.setScene(new Scene(newDriversPane, 390, 450));
+                stage.show();
+            }
+        });
 
         panel.setAlignment(Pos.TOP_CENTER);
 
