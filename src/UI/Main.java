@@ -225,7 +225,7 @@ public class Main extends Application {
                 newDriversPane.setVgap(5);
                 stage.setResizable(false);
                 stage.setTitle("Create New Driver");
-                stage.setScene(new Scene(newDriversPane, 350, 400));
+                stage.setScene(new Scene(newDriversPane, 325, 350));
                 stage.show();
             }
         });
