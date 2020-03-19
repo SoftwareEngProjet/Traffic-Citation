@@ -6,10 +6,18 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 
 public class Main extends Application {
@@ -21,6 +29,17 @@ public class Main extends Application {
    private Button btnCreateNewCitation = new Button("Create New Citation");
    private Button btnCreateNewDriver = new Button("Create New Driver");
    private Button btnCreateNewVehicle = new Button("Create New Vehicle");
+
+
+   //Tables for viewing the database information
+   private TableView showCitationsTable = new TableView();
+   //private VBox showCitationsTableVBox = new VBox(showCitationsTable);
+
+   private TableView showDriversTable = new TableView();
+    //private VBox showDriversTableVBox = new VBox(showVehiclesTable);
+
+    private TableView showVehiclesTable = new TableView();
+    //private VBox showVehiclesTableVbox = new Vbox(show
 
 
     //NEW CITATION BUTTONS AND TEXT FIELDS:
@@ -50,10 +69,12 @@ public class Main extends Application {
     private TextField newDriverBirthday = new TextField();
     private Button newDriverSave = new Button("Save");
 
+    //NEW VEHICLE BUTTONS AND TEXT FIELDS
+
 
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws IOException {
 
         //Create the environment itself.
         GridPane panel = new GridPane();
@@ -68,7 +89,7 @@ public class Main extends Application {
 
         panel.add(btnCreateNewCitation, 3, 1);
         panel.add(btnCreateNewDriver, 3, 2);
-        panel.add(btnCreateNewVehicle, 3, 3);
+        //panel.add(btnCreateNewVehicle, 3, 3);
 
         btnShowCitations.setPrefWidth(150);
         btnShowDrivers.setPrefWidth(150);
@@ -86,6 +107,10 @@ public class Main extends Application {
                 GridPane showCitationsPane = new GridPane();
                 Stage stage = new Stage();
                 stage.setTitle("Traffic Citations");
+                showCitationsPane.add(showCitationsTable, 0, 0);
+                showCitationsTable.setPrefWidth(450);
+
+
                 stage.setScene(new Scene(showCitationsPane, 450, 300));
                 stage.show();
             }
@@ -97,6 +122,10 @@ public class Main extends Application {
                 GridPane showVehiclesPane = new GridPane();
                 Stage stage = new Stage();
                 stage.setTitle("All Vehicles");
+                showVehiclesPane.add(showVehiclesTable, 0, 0);
+                showVehiclesTable.setPrefWidth(450);
+
+
                 stage.setScene(new Scene(showVehiclesPane, 450, 300));
                 stage.show();
             }
@@ -107,6 +136,10 @@ public class Main extends Application {
                 GridPane showDriversPane = new GridPane();
                 Stage stage = new Stage();
                 stage.setTitle("Show Drivers");
+                showDriversPane.add(showDriversTable, 0, 0);
+                showDriversTable.setPrefWidth(450);
+
+
                 stage.setScene(new Scene(showDriversPane, 450, 300));
                 stage.show();
             }
@@ -196,6 +229,15 @@ public class Main extends Application {
                 stage.show();
             }
         });
+
+        newDriverSave.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                //ATTN Matt: This is the save button for a new driver that you will need to manipulate for saving to a database.
+            }
+        });
+
+
+
 
         panel.setAlignment(Pos.TOP_CENTER);
 
