@@ -44,10 +44,11 @@ public class Main extends Application {
     //NEW DRIVER BUTTONS AND TEXT FIELDS
     private TextField newDriverName = new TextField();
     private CheckBox isSuspended = new CheckBox("Driver Suspended? (Check if yes.)");
-    private HBox getIsPaidHBox = new HBox(isSuspended);
+    private HBox isSuspendedHBox = new HBox(isSuspended);
     private CheckBox isRevoked = new CheckBox("License Revoked? (Check if yes.) ");
     private HBox isRevokedHBox = new HBox(isRevoked);
     private TextField newDriverBirthday = new TextField();
+    private Button newDriverSave = new Button("Save");
 
 
 
@@ -153,6 +154,8 @@ public class Main extends Application {
 
 
                 newCitationsPane.setVgap(5);
+                newCitationsPane.isResizable();
+                stage.setResizable(false);
                 stage.setTitle("Create New Citation");
                 stage.setScene(new Scene(newCitationsPane, 390, 450));
                 stage.show();
@@ -171,15 +174,25 @@ public class Main extends Application {
                 GridPane newDriversPane = new GridPane();
                 Stage stage = new Stage();
 
-                newDriversPane.add(new Label("Create New Citation"), 0, 0);
+                newDriversPane.add(new Label("Create New Driver"), 0, 0);
                 newDriversPane.add(new Label("Driver Name: "), 0, 2);
                 newDriversPane.add(newDriverName, 1, 2);
+                newDriverName.setPrefWidth(150);
 
+                newDriversPane.add(isSuspendedHBox, 1, 3);
 
+                newDriversPane.add(isRevokedHBox, 1, 4);
+
+                newDriversPane.add(new Label("Driver birth date: "),0 , 5);
+                newDriversPane.add(newDriverBirthday, 1, 5);
+                newDriverBirthday.setPrefWidth(150);
+
+                newDriversPane.add(newDriverSave, 1, 6);
 
                 newDriversPane.setVgap(5);
+                stage.setResizable(false);
                 stage.setTitle("Create New Driver");
-                stage.setScene(new Scene(newDriversPane, 390, 450));
+                stage.setScene(new Scene(newDriversPane, 350, 400));
                 stage.show();
             }
         });
