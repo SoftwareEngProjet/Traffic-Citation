@@ -1,5 +1,7 @@
 package UI;
 
+import Entities.DBConnection;
+import Entities.Driver;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,7 +20,6 @@ import javafx.scene.image.ImageView;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 
 public class Main extends Application {
 
@@ -253,8 +254,17 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        DBConnection db = new DBConnection();
+
+        Driver d = db.lookupDriverRecord(5);
+
+        System.out.println(d.getName());
+        System.out.println(d.getBirthday());
+        System.out.println(d.getId());
+        System.out.println(d.getRevoked());
+        System.out.println(d.getSuspended());
+        System.out.println(d.getLicense());
+
         Application.launch();
     }
-
-
 }
