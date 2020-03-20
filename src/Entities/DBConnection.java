@@ -129,4 +129,70 @@ public class DBConnection {
             return null;
         }
     }
+
+    public ArrayList<Driver> queryAllDrivers() {
+        try {
+            ResultSet queryResult = connect.createStatement().executeQuery("SELECT * FROM driver");
+            ArrayList<Driver> drivers = new ArrayList<>();
+
+            // Grab all records which have the birthday searched
+            while (queryResult.next()) {
+                drivers.add(new Driver(queryResult.getInt("id"),
+                        queryResult.getString("name"),
+                        queryResult.getByte("suspended"),
+                        queryResult.getByte("revoked"),
+                        queryResult.getDate("birthday"),
+                        queryResult.getString("license")));
+            }
+
+            return drivers;
+        }
+
+        catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public ArrayList<Vehicle> queryAllVehicles() {
+        try {
+            ResultSet queryResult = connect.createStatement().executeQuery("SELECT * FROM vehicle");
+            ArrayList<Vehicle> vehicle = new ArrayList<>();
+
+            // Grab all records which have the birthday searched
+            while (queryResult.next()) {
+                vehicle.add(new Vehicle(queryResult.getInt("id"),
+                                        queryResult.getString("license"),
+                                        queryResult.getString("make"),
+                                        queryResult.getByte("stolen"),
+                                        queryResult.getByte("registered"),
+                                        queryResult.getByte("wanted"),
+                                        queryResult.getInt("id")));
+            }
+
+            return vehicle;
+        }
+
+        catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public ArrayList<Citation> queryAllCitations() {
+        try {
+            ResultSet queryResult = connect.createStatement().executeQuery("SELECT * FROM vehicle");
+            ArrayList<Citation> citations = new ArrayList<>();
+
+            // Grab all records which have the birthday searched
+            while (queryResult.next()) {
+                citations.add(new Citation());
+            }
+
+            return citations;
+        }
+
+        catch (Exception ex) {
+            return null;
+        }
+    }
+
 }

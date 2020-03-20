@@ -2,6 +2,9 @@ package UI;
 
 import Entities.DBConnection;
 import Entities.Driver;
+import Entities.Vehicle;
+import Entities.Citation;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,6 +23,7 @@ import javafx.scene.image.ImageView;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -254,16 +258,48 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        // Establish DB Connection
         DBConnection db = new DBConnection();
 
-        Driver d = db.lookupDriverRecord(5);
+        /*
+         * Querying All Drivers
+         */
+        ArrayList<Driver> drivers = db.queryAllDrivers();
+        for (Driver driver : drivers) {
+            System.out.println();
+            System.out.println("Name: " + driver.getName());
+            System.out.println("Birthday: " + driver.getBirthday());
+            System.out.println("ID: " + driver.getId());
+            System.out.println("Revoked: " + (driver.getRevoked() == 1 ? "Revoked" : "Clear"));
+            System.out.println("Suspended: " + (driver.getSuspended() == 1 ? "Suspended" : "Clear"));
+            System.out.println("License: " + driver.getLicense());
+            System.out.println();
+        }
 
-        System.out.println(d.getName());
-        System.out.println(d.getBirthday());
-        System.out.println(d.getId());
-        System.out.println(d.getRevoked());
-        System.out.println(d.getSuspended());
-        System.out.println(d.getLicense());
+        /*
+         * Querying All Vehicles
+         */
+        ArrayList<Vehicle> vehicles = db.queryAllVehicles();
+        for (Vehicle vehicle : vehicles) {
+            System.out.println();
+            System.out.println("Make: " + vehicle.getMake());
+            System.out.println("License: " + vehicle.getLicense());
+            System.out.println("Vehicle ID: " + vehicle.getId());
+            System.out.println("Stolen: " + (vehicle.getStolen() == 1 ? "Stolen" : "Clear"));
+            System.out.println("Registered: " + (vehicle.getRegistered() == 1 ? "Registered" : "Clear"));
+            System.out.println("Wanted: " + (vehicle.getWanted() == 1 ? "Wanted" : "Clear"));
+            System.out.println("Driver ID: " + vehicle.getDriverId());
+            System.out.println();
+        }
+
+        /*
+         * Querying All Citations
+         * - this method returns
+         */
+        ArrayList<Citation> citations = db.queryAllCitations();
+        for (Citation citation : citations) {
+
+        }
 
         Application.launch();
     }
