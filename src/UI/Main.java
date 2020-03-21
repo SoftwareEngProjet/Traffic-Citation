@@ -77,7 +77,16 @@ public class Main extends Application {
     private Button newDriverSave = new Button("Save");
 
     //NEW VEHICLE BUTTONS AND TEXT FIELDS
-
+    private TextField newVehicleDriverID = new TextField();
+    private TextField newVehicleLicense = new TextField();
+    private TextField newVehicleMake = new TextField();
+    private CheckBox vehicleIsStolen = new CheckBox("Stolen? (Check if yes.)");
+    private HBox vehicleIsStolenHBox = new HBox(vehicleIsStolen);
+    private CheckBox vehicleIsRegistered = new CheckBox("Registered? (Check if yes.)");
+    private HBox vehicleIsRegisteredHbox = new HBox(vehicleIsRegistered);
+    private CheckBox vehicleIsWanted = new CheckBox("Wanted? (Check is yes.)");
+    private HBox vehicleIsWantedHbox = new HBox(vehicleIsWanted);
+    private Button newVehicleSave = new Button("Save");
 
 
     @Override
@@ -96,7 +105,7 @@ public class Main extends Application {
 
         panel.add(btnCreateNewCitation, 3, 1);
         panel.add(btnCreateNewDriver, 3, 2);
-        //panel.add(btnCreateNewVehicle, 3, 3);
+        panel.add(btnCreateNewVehicle, 3, 3);
 
         btnShowCitations.setPrefWidth(150);
         btnShowDrivers.setPrefWidth(150);
@@ -257,6 +266,47 @@ public class Main extends Application {
             }
         });
 
+        btnCreateNewVehicle.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                GridPane newVehiclesPane = new GridPane();
+                Stage stage = new Stage();
+
+                newVehiclesPane.add(new Label("Create New Vehicle: "), 0, 0);
+
+
+                newVehiclesPane.add(new Label("Driver ID Number: "), 0, 1);
+                newVehiclesPane.add(newVehicleDriverID, 1, 1);
+                newVehicleDriverID.setPrefWidth(150);
+
+                newVehiclesPane.add(new Label("Vehicle License: "), 0, 2);
+                newVehiclesPane.add(newVehicleLicense, 1, 2);
+                newVehicleLicense.setPrefWidth(150);
+
+                newVehiclesPane.add(new Label("Vehicle Make: "), 0, 3 );
+                newVehiclesPane.add(newVehicleMake, 1, 3);
+                newVehicleMake.setPrefWidth(150);
+
+                newVehiclesPane.add(vehicleIsStolenHBox, 1, 4);
+                newVehiclesPane.add(vehicleIsRegisteredHbox, 1, 5);
+                newVehiclesPane.add(vehicleIsWantedHbox, 1, 6);
+
+                newVehiclesPane.add(newVehicleSave, 1, 7);
+
+
+                newVehiclesPane.setVgap(5);
+                newVehiclesPane.isResizable();
+                stage.setResizable(false);
+                stage.setTitle("Create New Vehicle");
+                stage.setScene(new Scene(newVehiclesPane, 390, 400));
+                stage.show();
+            }
+        });
+
+        newVehicleSave.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                //ATTN Matt: This is the save button for a new vehicle that you will need to manipulate for saving to a database.
+            }
+        });
 
 
 
