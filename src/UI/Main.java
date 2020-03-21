@@ -98,6 +98,13 @@ public class Main extends Application {
     private TextField newTicketOffenseID = new TextField();
     private Button newTicketSave = new Button("Save");
 
+
+    //DRIVING SCHOOL BUTTONS AND TEXT FIELDS
+    private TextField firstDay = new TextField();
+    private TextField secondDay = new TextField();
+    private TextField schoolDriverID = new TextField();
+    private Button drivingSchoolSave = new Button("Save");
+
     @Override
     public void start(Stage primaryStage) throws IOException {
 
@@ -353,6 +360,37 @@ public class Main extends Application {
             }
         });
 
+        btnDrivingSchool.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                GridPane drivingSchoolPane = new GridPane();
+                Stage stage = new Stage();
+
+                drivingSchoolPane.add(new Label("Driving School"), 0, 0);
+                drivingSchoolPane.add(new Label("Day One: "), 0, 2);
+                drivingSchoolPane.add(firstDay, 1, 2);
+                firstDay.setPrefWidth(150);
+
+                drivingSchoolPane.add(new Label("Day Two: "), 0, 3);
+                drivingSchoolPane.add(secondDay,1, 3);
+
+                drivingSchoolPane.add(new Label("Driver ID:"), 0, 4);
+                drivingSchoolPane.add(schoolDriverID, 1, 4);
+
+                drivingSchoolPane.add(drivingSchoolSave, 1, 5);
+
+                drivingSchoolPane.setVgap(5);
+                stage.setResizable(false);
+                stage.setTitle("Create New Ticket");
+                stage.setScene(new Scene(drivingSchoolPane, 275, 190));
+                stage.show();
+            }
+        });
+
+        drivingSchoolSave.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                //ATTN Matt: This is the save button for a new warrant that you will need to manipulate for saving to a database.
+            }
+        });
 
         panel.setAlignment(Pos.TOP_CENTER);
 
