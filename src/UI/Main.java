@@ -33,9 +33,12 @@ public class Main extends Application {
    private Button btnShowCitations = new Button("View All Citations");
    private Button btnShowDrivers = new Button("View All Drivers");
    private Button btnShowVehicles = new Button("View All Vehicles");
+   private Button btnShowAllWarrents = new Button("View All Warrants");
    private Button btnCreateNewCitation = new Button("Create New Citation");
    private Button btnCreateNewDriver = new Button("Create New Driver");
    private Button btnCreateNewVehicle = new Button("Create New Vehicle");
+   private Button btnCreateNewWarrant = new Button("Create New Warrant");
+
 
 
    //Tables for viewing the database information
@@ -47,6 +50,8 @@ public class Main extends Application {
 
     private TableView showVehiclesTable = new TableView();
     //private VBox showVehiclesTableVbox = new Vbox(show
+
+
 
 
     //NEW CITATION BUTTONS AND TEXT FIELDS:
@@ -89,6 +94,7 @@ public class Main extends Application {
     private Button newVehicleSave = new Button("Save");
 
 
+
     @Override
     public void start(Stage primaryStage) throws IOException {
 
@@ -102,17 +108,21 @@ public class Main extends Application {
         panel.add(btnShowCitations, 0, 1);
         panel.add(btnShowDrivers, 0, 2);
         panel.add(btnShowVehicles, 0 ,3);
+        panel.add(btnShowAllWarrents,0, 4);
 
         panel.add(btnCreateNewCitation, 3, 1);
         panel.add(btnCreateNewDriver, 3, 2);
         panel.add(btnCreateNewVehicle, 3, 3);
+        panel.add(btnCreateNewWarrant, 3, 4);
 
         btnShowCitations.setPrefWidth(150);
         btnShowDrivers.setPrefWidth(150);
         btnShowVehicles.setPrefWidth(150);
+        btnShowAllWarrents.setPrefWidth(150);
         btnCreateNewCitation.setPrefWidth(150);
         btnCreateNewDriver.setPrefWidth(150);
         btnCreateNewVehicle.setPrefWidth(150);
+        btnCreateNewWarrant.setPrefWidth(150);
 
 
 
