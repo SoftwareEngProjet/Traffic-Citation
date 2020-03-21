@@ -16,10 +16,7 @@ import javafx.stage.Stage;
 import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -30,15 +27,15 @@ import Entities.*;
 public class Main extends Application {
 
     //MAIN MENU BUTTONS:
-   private Button btnShowCitations = new Button("View All Citations");
-   private Button btnShowDrivers = new Button("View All Drivers");
-   private Button btnShowVehicles = new Button("View All Vehicles");
-   private Button btnShowAllWarrents = new Button("View All Warrants");
+   private Button btndriverLookup = new Button("Driver Lookup");
+
+
    private Button btnCreateNewCitation = new Button("Create New Citation");
    private Button btnCreateNewDriver = new Button("Create New Driver");
    private Button btnCreateNewVehicle = new Button("Create New Vehicle");
    private Button btnCreateNewWarrant = new Button("Create New Warrant");
-
+   private Button btnCreateNewTicket = new Button("Create New Ticket");
+   private Button btnDrivingSchool = new Button("Driving School");
 
 
    //Tables for viewing the database information
@@ -50,7 +47,6 @@ public class Main extends Application {
 
     private TableView showVehiclesTable = new TableView();
     //private VBox showVehiclesTableVbox = new Vbox(show
-
 
 
 
@@ -93,6 +89,10 @@ public class Main extends Application {
     private HBox vehicleIsWantedHbox = new HBox(vehicleIsWanted);
     private Button newVehicleSave = new Button("Save");
 
+    //NEW WARRANT BUTTONS AND TEXT FIELDS
+    private TextField newWarrantOffenseID = new TextField();
+    private TextField newWarrantDescription = new TextField();
+    private Button newWarrantSave = new Button("Save");
 
 
     @Override
@@ -105,34 +105,33 @@ public class Main extends Application {
 
         //Display all the buttons, and make a lable above those buttons.
         panel.add(new Label("Sault Ste. Marie Traffic Citations"), 2, 0);
-        panel.add(btnShowCitations, 0, 1);
-        panel.add(btnShowDrivers, 0, 2);
-        panel.add(btnShowVehicles, 0 ,3);
-        panel.add(btnShowAllWarrents,0, 4);
+        panel.add(btndriverLookup, 0, 1);
+        panel.add(btnDrivingSchool,0, 2);
 
         panel.add(btnCreateNewCitation, 3, 1);
         panel.add(btnCreateNewDriver, 3, 2);
         panel.add(btnCreateNewVehicle, 3, 3);
         panel.add(btnCreateNewWarrant, 3, 4);
+        panel.add(btnCreateNewTicket, 3, 5);
 
-        btnShowCitations.setPrefWidth(150);
-        btnShowDrivers.setPrefWidth(150);
-        btnShowVehicles.setPrefWidth(150);
-        btnShowAllWarrents.setPrefWidth(150);
+        btndriverLookup.setPrefWidth(150);
+        btnDrivingSchool.setPrefWidth(150);
         btnCreateNewCitation.setPrefWidth(150);
         btnCreateNewDriver.setPrefWidth(150);
         btnCreateNewVehicle.setPrefWidth(150);
         btnCreateNewWarrant.setPrefWidth(150);
+        btnCreateNewTicket.setPrefWidth(150);
+
 
 
 
         //Event handlers for when the buttons are pushed:
         //These are event handlers for viewing data from the database.
-        btnShowCitations.setOnAction(new EventHandler<ActionEvent>() {
+        btndriverLookup.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 GridPane showCitationsPane = new GridPane();
                 Stage stage = new Stage();
-                stage.setTitle("Traffic Citations");
+                stage.setTitle("Driver Lookup");
                 showCitationsPane.add(showCitationsTable, 0, 0);
                 showCitationsTable.setPrefWidth(450);
 
@@ -143,33 +142,6 @@ public class Main extends Application {
         });
 
 
-        btnShowVehicles.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                GridPane showVehiclesPane = new GridPane();
-                Stage stage = new Stage();
-                stage.setTitle("All Vehicles");
-                showVehiclesPane.add(showVehiclesTable, 0, 0);
-                showVehiclesTable.setPrefWidth(450);
-
-
-                stage.setScene(new Scene(showVehiclesPane, 450, 300));
-                stage.show();
-            }
-        });
-
-        btnShowDrivers.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                GridPane showDriversPane = new GridPane();
-                Stage stage = new Stage();
-                stage.setTitle("Show Drivers");
-                showDriversPane.add(showDriversTable, 0, 0);
-                showDriversTable.setPrefWidth(450);
-
-
-                stage.setScene(new Scene(showDriversPane, 450, 300));
-                stage.show();
-            }
-        });
 
         //These event handlers are for adding new entities to the DB.
         btnCreateNewCitation.setOnAction(new EventHandler<ActionEvent>() {
@@ -318,6 +290,38 @@ public class Main extends Application {
             }
         });
 
+        btnCreateNewWarrant.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                GridPane newWarrantPane = new GridPane();
+                Stage stage = new Stage();
+
+                newWarrantPane.add(new Label("Create New Warrant"), 0, 0);
+                newWarrantPane.add(new Label("Offense ID: "), 0, 2);
+                newWarrantPane.add(newWarrantOffenseID, 1, 2);
+                newWarrantOffenseID.setPrefWidth(150);
+
+
+                newWarrantPane.add(new Label("Offense Description: "),0 , 3);
+                newWarrantPane.add(newWarrantDescription, 1, 3);
+                newWarrantDescription.setPrefWidth(150);
+                newWarrantDescription.setPrefHeight(65);
+
+
+                newWarrantPane.add(newWarrantSave, 1, 4);
+
+                newWarrantPane.setVgap(5);
+                stage.setResizable(false);
+                stage.setTitle("Create New Warrant");
+                stage.setScene(new Scene(newWarrantPane, 375, 350));
+                stage.show();
+            }
+        });
+
+        newWarrantSave.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                //ATTN Matt: This is the save button for a new warrant that you will need to manipulate for saving to a database.
+            }
+        });
 
 
         panel.setAlignment(Pos.TOP_CENTER);
