@@ -154,4 +154,15 @@ public class DBConnection {
         }
         return offenseID;
     }
+    public void insertCitation(Citation citation) {
+        // Inserts a new citation
+        try {
+            String query = "INSERT INTO citation (offense_id, vehicle_id) VALUES (" + citation.getOffenseId() + ',' + citation.getVehicleId() + ");";
+            Statement stmt = connect.createStatement();
+            stmt.executeUpdate(query);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

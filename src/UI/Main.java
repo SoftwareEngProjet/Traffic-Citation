@@ -216,7 +216,9 @@ public class Main extends Application {
                 );
                 DBConnection db = new DBConnection();
                 int offense_id = db.insertOffense(offense);
-                System.out.println(offense_id);
+                // TODO: Get Vehicle ID from the form
+                Citation citation = new Citation(offense_id, 0000);
+                db.insertCitation(citation);
             }
         });
 
