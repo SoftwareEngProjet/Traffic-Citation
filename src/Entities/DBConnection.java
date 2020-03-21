@@ -13,6 +13,7 @@
 package Entities;
 
 // Imports
+import java.security.spec.ECField;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.DriverManager;
@@ -128,5 +129,29 @@ public class DBConnection {
         catch (Exception ex) {
             return null;
         }
+    }
+    public int insertOffense(Offense offense) {
+        // Inserts a new offense and returns its database ID
+        int offenseID;
+        try {
+            String query = "INSERT INTO offense (`date`, fine, paid, officer_id, driver_id)" +
+                    " VALUES (" + "'" + offense.getDate() + "\'," + offense.getFine() + ',' + offense.getPaid() + ',' +
+                    offense.getOfficerId() + ',' + offense.getDriverId() + ");";
+            Statement stmt = connect.createStatement();
+            stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+
+            // Get database ID, Throw exception if this fails
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()){
+                offenseID = rs.getInt(1);
+            }
+            else {
+                throw new Exception();
+            }
+        }
+        catch (Exception e) {
+            return -1;
+        }
+        return offenseID;
     }
 }
