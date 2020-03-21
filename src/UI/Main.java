@@ -94,6 +94,9 @@ public class Main extends Application {
     private TextField newWarrantDescription = new TextField();
     private Button newWarrantSave = new Button("Save");
 
+    //NEW TICKET BUTTONS AND TEXT FIELDS
+    private TextField newTicketOffenseID = new TextField();
+    private Button newTicketSave = new Button("Save");
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -318,6 +321,33 @@ public class Main extends Application {
         });
 
         newWarrantSave.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                //ATTN Matt: This is the save button for a new warrant that you will need to manipulate for saving to a database.
+            }
+        });
+
+        btnCreateNewTicket.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                GridPane newTicketPane = new GridPane();
+                Stage stage = new Stage();
+
+                newTicketPane.add(new Label("Create New Ticket"), 0, 0);
+                newTicketPane.add(new Label("Offense ID: "), 0, 2);
+                newTicketPane.add(newTicketOffenseID, 1, 2);
+                newTicketOffenseID.setPrefWidth(150);
+
+
+                newTicketPane.add(newTicketSave, 1, 4);
+
+                newTicketPane.setVgap(5);
+                stage.setResizable(false);
+                stage.setTitle("Create New Ticket");
+                stage.setScene(new Scene(newTicketPane, 275, 190));
+                stage.show();
+            }
+        });
+
+        newTicketSave.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 //ATTN Matt: This is the save button for a new warrant that you will need to manipulate for saving to a database.
             }
