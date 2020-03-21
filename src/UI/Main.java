@@ -1,5 +1,6 @@
 package UI;
 
+import Entities.Citation;
 import Entities.DBConnection;
 import Entities.Driver;
 import javafx.application.Application;
@@ -20,6 +21,11 @@ import javafx.scene.image.ImageView;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.Calendar;
+
+import Entities.*;
 
 public class Main extends Application {
 
@@ -199,6 +205,20 @@ public class Main extends Application {
         newCitationSave.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 //ATTN Matt: This is the save button for a new citation that you will need to manipulate for saving to a database.
+                // gets the current date for date of offense
+                Offense offense = new Offense(
+                        0,
+                        new Date(Calendar.getInstance().getTime().getTime()),
+                        new BigDecimal(newCitationFine.getText()),
+                        (byte)((isPaid.isSelected())?1:0),
+                        Integer.parseInt(newCitationOfficerID.getText()),
+                        Integer.parseInt(newCitationDriverID.getText())
+                );
+                DBConnection db = new DBConnection();
+                int offense_id = db.insertOffense(offense);
+                // TODO: Get Vehicle ID from the form
+                Citation citation = new Citation(offense_id, 0000);
+                db.insertCitation(citation);
             }
         });
 
