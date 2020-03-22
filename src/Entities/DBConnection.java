@@ -63,66 +63,20 @@ public class DBConnection {
      */
 
     //  Driver Query Methods
-    public Driver lookupDriverRecord(int driverID) {
+    public Driver lookupDriverRecord(String licenseNumber) {
         try {
-            ResultSet queryResult = connect.createStatement().executeQuery("SELECT * FROM driver WHERE id = " + driverID);
+            ResultSet queryResult = connect.createStatement().executeQuery("SELECT * FROM driver WHERE license = '" + licenseNumber + "'");
 
             // Record not found
             if (!queryResult.next())
                 return null;
 
-            return new Driver(driverID,
+            return new Driver(queryResult.getInt("id"),
                               queryResult.getString("name"),
                               queryResult.getByte("suspended"),
                               queryResult.getByte("revoked"),
                               queryResult.getDate("birthday"),
                               queryResult.getString("license"));
-        }
-
-        catch (Exception ex) {
-            return null;
-        }
-    }
-
-    public Driver lookupDriverRecord(String name) {
-        try {
-            ResultSet queryResult = connect.createStatement().executeQuery("SELECT * FROM driver WHERE name = '" + name + "'");
-
-            // Record not found
-            if (!queryResult.next())
-                return null;
-
-            return new Driver(queryResult.getInt("id"), name,
-                              queryResult.getByte("suspended"),
-                              queryResult.getByte("revoked"),
-                              queryResult.getDate("birthday"),
-                              queryResult.getString("license"));
-        }
-
-        catch (Exception ex) {
-            return null;
-        }
-    }
-
-    /*
-     * This method takes a parameter like below:
-     * - java.sql.Date.valueOf("2000-05-23")
-     */
-    public ArrayList<Driver> lookupDriverRecord(Date birthday) {
-        try {
-            ResultSet queryResult = connect.createStatement().executeQuery("SELECT * FROM driver WHERE birthday = '" + birthday + "'");
-            ArrayList<Driver> potentialDrivers = new ArrayList<>();
-
-            // Grab all records which have the birthday searched
-            while (queryResult.next()) {
-                potentialDrivers.add(new Driver(queryResult.getInt("id"),
-                                                queryResult.getString("name"),
-                                                queryResult.getByte("suspended"),
-                                                queryResult.getByte("revoked"), birthday,
-                                                queryResult.getString("license")));
-            }
-
-            return potentialDrivers;
         }
 
         catch (Exception ex) {
