@@ -287,6 +287,15 @@ public class Main extends Application {
         newDriverSave.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 //ATTN Matt: This is the save button for a new driver that you will need to manipulate for saving to a database.
+//                Driver driver = new Driver(
+//                        0,
+//                        newDriverName.getText(),
+//                        (byte)((isSuspended.isSelected())?1:0),
+//                        (byte)((isRevoked.isSelected())?1:0),
+//                        Date.valueOf(newDriverBirthday.getText()),
+//                        newDriverLicense.getText());
+//                DBConnection db = new DBConnection();
+//                db.insertDriver(driver);
             }
         });
 
@@ -329,6 +338,17 @@ public class Main extends Application {
         newVehicleSave.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 //ATTN Matt: This is the save button for a new vehicle that you will need to manipulate for saving to a database.
+                Vehicle vehicle = new Vehicle(
+                        0,
+                        newVehicleLicense.getText(),
+                        newVehicleMake.getText(),
+                        (byte)((isStolen.isSelected())?1:0),
+                        (byte)((isRegistered.isSelected())?1:0),
+                        (byte)((isWanted.isSelected())?1:0),
+                        Integer.parseInt(newVehicleDriverID.getText())
+                );
+                DBConnection db = new DBConnection();
+                db.insertVehicle(vehicle);
             }
         });
 
