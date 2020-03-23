@@ -468,21 +468,12 @@ public class Main extends Application {
         drivingSchoolSave.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 //ATTN Matt: This is the save button for a new warrant that you will need to manipulate for saving to a database.
-                School school;
-                if(secondDay.getValue() == null) {
-                    school = new School(
-                            0,
-                            Date.valueOf(firstDay.getValue()),
-                            Integer.parseInt(schoolDriverID.getText())
-                    );
-                } else {
-                    school = new School(
+                School school = new School(
                             0,
                             Date.valueOf(firstDay.getValue()),
                             Date.valueOf(secondDay.getValue()),
                             Integer.parseInt(schoolDriverID.getText())
                     );
-                }
                 DBConnection db = new DBConnection();
                 System.out.println(secondDay.getValue());
                 db.insertSchool(school);

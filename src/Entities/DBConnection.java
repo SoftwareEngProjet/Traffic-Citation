@@ -182,8 +182,8 @@ public class DBConnection {
     public void insertDriver(Driver driver) {
         try {
             String query = "insert into `driver`(name,suspended,revoked,birthday,license) values ('" +
-            driver.getName() + "'," + driver.getSuspended() + ',' + driver.getRevoked() + ',' + driver.getBirthday() +
-                    ", '" + driver.getLicense() + "');";
+            driver.getName() + "'," + driver.getSuspended() + ',' + driver.getRevoked() + ",'" + driver.getBirthday() +
+                    "', '" + driver.getLicense() + "');";
             Statement stmt = connect.createStatement();
             stmt.executeUpdate(query);
         }
@@ -215,6 +215,14 @@ public class DBConnection {
     }
 
     public void insertSchool(School school) {
-
+        try {
+            String query = "INSERT INTO school (day_one, day_two, driver_id) VALUES ('" + school.getDayOne() + "','" + school.getDayTwo() + "'," + school.getDriverId() +
+                    ");";
+            Statement stmt = connect.createStatement();
+            stmt.executeUpdate(query);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
