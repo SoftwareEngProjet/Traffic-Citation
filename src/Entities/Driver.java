@@ -19,6 +19,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.sql.Date;
 import java.util.Objects;
+import java.util.ArrayList;
 
 @Entity
 public class Driver {
@@ -29,6 +30,8 @@ public class Driver {
     private Byte revoked;
     private Date birthday;
     private String license;
+    private ArrayList<Offense> offenses;
+    private School trafficSchool;
 
     // No-arg Constructor
     public Driver() {

@@ -21,7 +21,7 @@ import java.sql.Date;
 import java.util.Objects;
 
 @Entity
-public class Citation {
+public class Citation  extends Offense{
     // Variables
     private Integer offenseId;
     private Integer vehicleId;
@@ -44,8 +44,6 @@ public class Citation {
      */
 
     // Offense ID
-    @Id
-    @Column(name = "offense_id")
     public Integer getOffenseId() {
         return offenseId;
     }
@@ -55,8 +53,6 @@ public class Citation {
     }
 
     // Vehicle ID
-    @Basic
-    @Column(name = "vehicle_id")
     public Integer getVehicleId() {
         return vehicleId;
     }

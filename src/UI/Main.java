@@ -26,7 +26,7 @@ import Entities.*;
 
 public class Main extends Application {
 
-    //MAIN MENU BUTTONS:
+    // MAIN MENU BUTTONS:
    private Button btndriverLookup = new Button("Driver Lookup");
 
 
@@ -38,7 +38,7 @@ public class Main extends Application {
    private Button btnDrivingSchool = new Button("Driving School");
 
 
-   //Tables for viewing the database information
+   // Tables for viewing the database information
    private TableView showCitationsTable = new TableView();
    //private VBox showCitationsTableVBox = new VBox(showCitationsTable);
 
@@ -49,8 +49,7 @@ public class Main extends Application {
     //private VBox showVehiclesTableVbox = new Vbox(show
 
 
-
-    //NEW CITATION BUTTONS AND TEXT FIELDS:
+    // NEW CITATION BUTTONS AND TEXT FIELDS:
     private DatePicker newCitationDate = new DatePicker();
     private TextField newCitationFine = new TextField();
     private CheckBox isPaid = new CheckBox("Paid? (Check if yes.)");
@@ -68,7 +67,7 @@ public class Main extends Application {
     private Button newCitationSave = new Button("Save");
 
 
-    //NEW DRIVER BUTTONS AND TEXT FIELDS
+    // NEW DRIVER BUTTONS AND TEXT FIELDS
     private TextField newDriverName = new TextField();
     private CheckBox isSuspended = new CheckBox("Driver Suspended? (Check if yes.)");
     private HBox isSuspendedHBox = new HBox(isSuspended);
@@ -77,7 +76,7 @@ public class Main extends Application {
     private DatePicker newDriverBirthday = new DatePicker();
     private Button newDriverSave = new Button("Save");
 
-    //NEW VEHICLE BUTTONS AND TEXT FIELDS
+    // NEW VEHICLE BUTTONS AND TEXT FIELDS
     private TextField newVehicleDriverID = new TextField();
     private TextField newVehicleLicense = new TextField();
     private TextField newVehicleMake = new TextField();
@@ -89,17 +88,17 @@ public class Main extends Application {
     private HBox vehicleIsWantedHbox = new HBox(vehicleIsWanted);
     private Button newVehicleSave = new Button("Save");
 
-    //NEW WARRANT BUTTONS AND TEXT FIELDS
+    // NEW WARRANT BUTTONS AND TEXT FIELDS
     private TextField newWarrantOffenseID = new TextField();
     private TextField newWarrantDescription = new TextField();
     private Button newWarrantSave = new Button("Save");
 
-    //NEW TICKET BUTTONS AND TEXT FIELDS
+    // NEW TICKET BUTTONS AND TEXT FIELDS
     private TextField newTicketOffenseID = new TextField();
     private Button newTicketSave = new Button("Save");
 
 
-    //DRIVING SCHOOL BUTTONS AND TEXT FIELDS
+    // DRIVING SCHOOL BUTTONS AND TEXT FIELDS
     private DatePicker firstDay = new DatePicker();
     private DatePicker secondDay = new DatePicker();
     private TextField schoolDriverID = new TextField();
@@ -133,8 +132,6 @@ public class Main extends Application {
         btnCreateNewTicket.setPrefWidth(150);
 
 
-
-
         //Event handlers for when the buttons are pushed:
         //These are event handlers for viewing data from the database.
         btndriverLookup.setOnAction(new EventHandler<ActionEvent>() {
@@ -150,7 +147,6 @@ public class Main extends Application {
                 stage.show();
             }
         });
-
 
 
         //These event handlers are for adding new entities to the DB.
@@ -408,7 +404,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         DBConnection db = new DBConnection();
 
-        
+
         Application.launch();
     }
 }

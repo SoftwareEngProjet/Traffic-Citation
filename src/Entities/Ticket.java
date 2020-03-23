@@ -20,7 +20,7 @@ import java.sql.Date;
 import java.util.Objects;
 
 @Entity
-public class Ticket {
+public class Ticket extends Offense{
     // Variables
     private Integer offenseId;
 
@@ -39,8 +39,6 @@ public class Ticket {
      */
 
     // Offense Id
-    @Id
-    @Column(name = "offense_id")
     public Integer getOffenseId() {
         return offenseId;
     }
