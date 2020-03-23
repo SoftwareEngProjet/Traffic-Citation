@@ -261,45 +261,6 @@ public class Main extends Application {
         // Establish DB Connection
         DBConnection db = new DBConnection();
 
-        /*
-         * Querying All Drivers
-         */
-        ArrayList<Driver> drivers = db.queryAllDrivers();
-        for (Driver driver : drivers) {
-            System.out.println();
-            System.out.println("Name: " + driver.getName());
-            System.out.println("Birthday: " + driver.getBirthday());
-            System.out.println("ID: " + driver.getId());
-            System.out.println("Revoked: " + (driver.getRevoked() == 1 ? "Revoked" : "Clear"));
-            System.out.println("Suspended: " + (driver.getSuspended() == 1 ? "Suspended" : "Clear"));
-            System.out.println("License: " + driver.getLicense());
-            System.out.println();
-        }
-
-        /*
-         * Querying All Vehicles
-         */
-        ArrayList<Vehicle> vehicles = db.queryAllVehicles();
-        for (Vehicle vehicle : vehicles) {
-            System.out.println();
-            System.out.println("Make: " + vehicle.getMake());
-            System.out.println("License: " + vehicle.getLicense());
-            System.out.println("Vehicle ID: " + vehicle.getId());
-            System.out.println("Stolen: " + (vehicle.getStolen() == 1 ? "Stolen" : "Clear"));
-            System.out.println("Registered: " + (vehicle.getRegistered() == 1 ? "Registered" : "Clear"));
-            System.out.println("Wanted: " + (vehicle.getWanted() == 1 ? "Wanted" : "Clear"));
-            System.out.println("Driver ID: " + vehicle.getDriverId());
-            System.out.println();
-        }
-
-        /*
-         * Querying All Citations
-         * - this method returns
-         */
-        ArrayList<Citation> citations = db.queryAllCitations();
-        for (Citation citation : citations) {
-
-        }
 
         Application.launch();
     }
