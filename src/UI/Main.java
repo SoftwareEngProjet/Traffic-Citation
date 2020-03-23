@@ -108,7 +108,21 @@ public class Main extends Application {
     private Button newWarrantSave = new Button("Save");
 
     //NEW TICKET BUTTONS AND TEXT FIELDS
-    private TextField newTicketOffenseID = new TextField();
+    private DatePicker newTicketDate = new DatePicker();
+    private TextField newTicketFine = new TextField();
+    private CheckBox ticketIsPaid = new CheckBox("Paid? (Check if yes.)");
+    private HBox ticketIsPaidHBox = new HBox(ticketIsPaid);
+    private TextField newTicketOfficerID = new TextField();
+    private TextField newTicketDriverID = new TextField();
+    private TextField newTicketLicense = new TextField();
+    private TextField newTicketMake = new TextField();
+    private CheckBox ticketIsStolen = new CheckBox("Stolen? (Check if yes.)");
+    private HBox ticketIsStolenHBox = new HBox(ticketIsStolen);
+    private CheckBox ticketIsRegistered = new CheckBox("Registered? (Check if yes.)");
+    private HBox ticketIsRegisteredHbox = new HBox(ticketIsRegistered);
+    private CheckBox ticketIsWanted = new CheckBox("Wanted? (Check is yes.)");
+    private HBox ticketIsWantedHbox = new HBox(ticketIsWanted);
+    private TextField newTicketDescription = new TextField();
     private Button newTicketSave = new Button("Save");
 
 
@@ -381,17 +395,46 @@ public class Main extends Application {
                 Stage stage = new Stage();
 
                 newTicketPane.add(new Label("Create New Ticket"), 0, 0);
-                newTicketPane.add(new Label("Offense ID: "), 0, 2);
-                newTicketPane.add(newTicketOffenseID, 1, 2);
-                newTicketOffenseID.setPrefWidth(150);
 
 
-                newTicketPane.add(newTicketSave, 1, 4);
+                newTicketPane.add(new Label("Date of Offense: "), 0, 2);
+                newTicketPane.add(newTicketDate, 1 , 2);
+                newTicketDate.setPrefWidth(150);
+
+                newTicketPane.add(new Label("Fine Amount: "), 0, 3);
+                newTicketPane.add(newTicketFine, 1, 3);
+                newTicketFine.setPrefWidth(150);
+
+                newTicketPane.add(ticketIsPaidHBox, 1, 4);
+
+                newTicketPane.add(new Label("Officer ID Number: "), 0, 5);
+                newTicketPane.add(newTicketOfficerID, 1, 5);
+                newTicketOfficerID.setPrefWidth(150);
+
+
+                newTicketPane.add(new Label("Driver ID Number: "), 0, 7);
+                newTicketPane.add(newTicketDriverID, 1, 7);
+                newTicketDriverID.setPrefWidth(150);
+
+                newTicketPane.add(new Label("Vehicle License: "), 0, 8);
+                newTicketPane.add(newTicketLicense, 1, 8);
+                newTicketLicense.setPrefWidth(150);
+
+                newTicketPane.add(new Label("Vehicle Make: "), 0, 9 );
+                newTicketPane.add(newTicketMake, 1, 9);
+                newTicketMake.setPrefWidth(150);
+
+                newTicketPane.add(ticketIsStolenHBox, 1, 10);
+                newTicketPane.add(ticketIsRegisteredHbox, 1, 11);
+                newTicketPane.add(ticketIsWantedHbox, 1, 12);
+
+
+                newTicketPane.add(newTicketSave, 1, 13);
 
                 newTicketPane.setVgap(5);
                 stage.setResizable(false);
                 stage.setTitle("Create New Ticket");
-                stage.setScene(new Scene(newTicketPane, 275, 190));
+                stage.setScene(new Scene(newTicketPane, 275, 420));
                 stage.show();
             }
         });
