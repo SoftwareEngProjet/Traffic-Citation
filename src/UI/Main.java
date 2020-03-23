@@ -74,7 +74,7 @@ public class Main extends Application {
     private HBox isSuspendedHBox = new HBox(isSuspended);
     private CheckBox isRevoked = new CheckBox("License Revoked? (Check if yes.) ");
     private HBox isRevokedHBox = new HBox(isRevoked);
-    private TextField newDriverBirthday = new TextField();
+    private DatePicker newDriverBirthday = new DatePicker();
     private Button newDriverSave = new Button("Save");
 
     //NEW VEHICLE BUTTONS AND TEXT FIELDS
@@ -100,8 +100,8 @@ public class Main extends Application {
 
 
     //DRIVING SCHOOL BUTTONS AND TEXT FIELDS
-    private TextField firstDay = new TextField();
-    private TextField secondDay = new TextField();
+    private DatePicker firstDay = new DatePicker();
+    private DatePicker secondDay = new DatePicker();
     private TextField schoolDriverID = new TextField();
     private Button drivingSchoolSave = new Button("Save");
 
