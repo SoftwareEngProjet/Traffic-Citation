@@ -18,6 +18,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Objects;
 
 @Entity
@@ -29,6 +30,7 @@ public class Driver {
     private Byte revoked;
     private Date birthday;
     private String license;
+    private ArrayList<Offense> offenses;
 
     // No-arg Constructor
     public Driver() {
@@ -38,6 +40,7 @@ public class Driver {
         revoked = 0;
         birthday = new Date(new java.util.Date().getDate());
         license = "";
+        offenses = new ArrayList<Offense>();
     }
 
     // Multi-arg Constructor
@@ -48,6 +51,7 @@ public class Driver {
         this.revoked = revoked;
         this.birthday = birthday;
         this.license = license;
+        offenses = new ArrayList<Offense>();
     }
 
     /* --- Class Methods Below ---
@@ -124,6 +128,14 @@ public class Driver {
 
     public void setLicense(String license) {
         this.license = license;
+    }
+
+    public ArrayList<Offense> getOffenses() {
+        return offenses;
+    }
+
+    public void setOffenses(ArrayList<Offense> offenses) {
+        this.offenses = offenses;
     }
 
     // Other

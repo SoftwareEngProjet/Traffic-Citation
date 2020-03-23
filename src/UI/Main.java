@@ -25,7 +25,6 @@ import java.util.Calendar;
 import Entities.*;
 
 public class Main extends Application {
-
     //MAIN MENU BUTTONS:
    private Button btndriverLookup = new Button("Driver Lookup");
 
@@ -104,6 +103,8 @@ public class Main extends Application {
     private DatePicker secondDay = new DatePicker();
     private TextField schoolDriverID = new TextField();
     private Button drivingSchoolSave = new Button("Save");
+
+    private DBConnection db = new DBConnection();
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -224,9 +225,10 @@ public class Main extends Application {
                         new BigDecimal(newCitationFine.getText()),
                         (byte)((isPaid.isSelected())?1:0),
                         Integer.parseInt(newCitationOfficerID.getText()),
-                        Integer.parseInt(newCitationDriverID.getText())
+                        Integer.parseInt(newCitationDriverID.getText()),
+                        "Citation"
                 );
-                DBConnection db = new DBConnection();
+
                 int offense_id = db.insertOffense(offense);
                 Citation citation = new Citation(offense_id, Integer.parseInt(newCitationVehicleID.getText()));
                 db.insertCitation(citation);
@@ -276,7 +278,7 @@ public class Main extends Application {
                         (byte)((isRevoked.isSelected())?1:0),
                         Date.valueOf(newDriverBirthday.getValue()),
                         newDriverLicense.getText());
-                DBConnection db = new DBConnection();
+
                 db.insertDriver(driver);
             }
         });
@@ -329,7 +331,7 @@ public class Main extends Application {
                         (byte)((vehicleIsWanted.isSelected())?1:0),
                         Integer.parseInt(newVehicleDriverID.getText())
                 );
-                DBConnection db = new DBConnection();
+
                 db.insertVehicle(vehicle);
             }
         });
@@ -385,9 +387,10 @@ public class Main extends Application {
                         new BigDecimal(newWarrantFine.getText()),
                         (byte)((warrantIsPaid.isSelected())?1:0),
                         Integer.parseInt(newWarrantOfficerID.getText()),
-                        Integer.parseInt(newWarrantDriverID.getText())
+                        Integer.parseInt(newWarrantDriverID.getText()),
+                        "Warrant"
                 );
-                DBConnection db = new DBConnection();
+
                 int offense_id = db.insertOffense(offense);
                 Warrant warrant = new Warrant(offense_id, newWarrantDescription.getText());
                 db.insertWarrant(warrant);
@@ -440,9 +443,10 @@ public class Main extends Application {
                         new BigDecimal(newTicketFine.getText()),
                         (byte)((ticketIsPaid.isSelected())?1:0),
                         Integer.parseInt(newTicketOfficerID.getText()),
-                        Integer.parseInt(newTicketDriverID.getText())
+                        Integer.parseInt(newTicketDriverID.getText()),
+                        "Ticket"
                 );
-                DBConnection db = new DBConnection();
+
                 int offense_id = db.insertOffense(offense);
                 Ticket ticket = new Ticket(offense_id);
                 db.insertTicket(ticket);
@@ -484,7 +488,7 @@ public class Main extends Application {
                             Date.valueOf(secondDay.getValue()),
                             Integer.parseInt(schoolDriverID.getText())
                     );
-                DBConnection db = new DBConnection();
+
                 System.out.println(secondDay.getValue());
                 db.insertSchool(school);
             }
@@ -502,19 +506,7 @@ public class Main extends Application {
 
     }
 
-
     public static void main(String[] args) {
-        DBConnection db = new DBConnection();
-
-        Driver d = db.lookupDriverRecord(5);
-
-        System.out.println(d.getName());
-        System.out.println(d.getBirthday());
-        System.out.println(d.getId());
-        System.out.println(d.getRevoked());
-        System.out.println(d.getSuspended());
-        System.out.println(d.getLicense());
-
         Application.launch();
     }
 }

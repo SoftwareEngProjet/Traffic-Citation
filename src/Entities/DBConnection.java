@@ -64,72 +64,71 @@ public class DBConnection {
      */
 
     //  Driver Query Methods
-    public Driver lookupDriverRecord(int driverID) {
+    public Driver lookupDriver(String licenseNumber) {
         try {
-            ResultSet queryResult = connect.createStatement().executeQuery("SELECT * FROM driver WHERE id = " + driverID);
+            ResultSet queryResult = connect.createStatement().executeQuery("SELECT * FROM driver WHERE license = '" + licenseNumber + "'");
 
             // Record not found
             if (!queryResult.next())
                 return null;
 
-            return new Driver(driverID,
-                              queryResult.getString("name"),
-                              queryResult.getByte("suspended"),
-                              queryResult.getByte("revoked"),
-                              queryResult.getDate("birthday"),
-                              queryResult.getString("license"));
-        }
+            Driver newDriver = new Driver(queryResult.getInt("id"),
+                    queryResult.getString("name"),
+                    queryResult.getByte("suspended"),
+                    queryResult.getByte("revoked"),
+                    queryResult.getDate("birthday"),
+                    queryResult.getString("license"));
 
-        catch (Exception ex) {
-            return null;
-        }
-    }
+            // Queries
+            String ticketQuery = "SELECT * FROM ticket JOIN offense ON ticket.offense_id = offense.id WHERE offense.driver_id = '" + newDriver.getId() + "'";
+            String citationQuery = "SELECT * FROM citation JOIN offense ON citation.offense_id = offense.id WHERE offense.driver_id = '" + newDriver.getId() + "'";
+            String warrantQuery = "SELECT * FROM warrant JOIN offense ON warrant.offense_id = offense.id WHERE offense.driver_id = '" + newDriver.getId() + "'";
 
-    public Driver lookupDriverRecord(String name) {
-        try {
-            ResultSet queryResult = connect.createStatement().executeQuery("SELECT * FROM driver WHERE name = '" + name + "'");
+            // Execute Queries
+            ResultSet ticketQueryResult = connect.createStatement().executeQuery(ticketQuery);
+            ResultSet citationQueryResult = connect.createStatement().executeQuery(citationQuery);
+            ResultSet warrantQueryResult = connect.createStatement().executeQuery(warrantQuery);
 
-            // Record not found
-            if (!queryResult.next())
-                return null;
 
-            return new Driver(queryResult.getInt("id"), name,
-                              queryResult.getByte("suspended"),
-                              queryResult.getByte("revoked"),
-                              queryResult.getDate("birthday"),
-                              queryResult.getString("license"));
-        }
-
-        catch (Exception ex) {
-            return null;
-        }
-    }
-
-    /*
-     * This method takes a parameter like below:
-     * - java.sql.Date.valueOf("2000-05-23")
-     */
-    public ArrayList<Driver> lookupDriverRecord(Date birthday) {
-        try {
-            ResultSet queryResult = connect.createStatement().executeQuery("SELECT * FROM driver WHERE birthday = '" + birthday + "'");
-            ArrayList<Driver> potentialDrivers = new ArrayList<>();
-
-            // Grab all records which have the birthday searched
-            while (queryResult.next()) {
-                potentialDrivers.add(new Driver(queryResult.getInt("id"),
-                                                queryResult.getString("name"),
-                                                queryResult.getByte("suspended"),
-                                                queryResult.getByte("revoked"), birthday,
-                                                queryResult.getString("license")));
+            // Create Instances if we have successful queries
+            if (ticketQueryResult.next()) {
+                newDriver.getOffenses().add(new Offense(ticketQueryResult.getInt("id"),
+                        ticketQueryResult.getDate("date"),
+                        ticketQueryResult.getBigDecimal("fine"),
+                        ticketQueryResult.getByte("paid"),
+                        ticketQueryResult.getInt("officer_id"),
+                        ticketQueryResult.getInt("driver_id"),
+                        "Ticket Offense"));
             }
 
-            return potentialDrivers;
+            if (citationQueryResult.next()) {
+                newDriver.getOffenses().add(new Offense(citationQueryResult.getInt("id"),
+                        citationQueryResult.getDate("date"),
+                        citationQueryResult.getBigDecimal("fine"),
+                        citationQueryResult.getByte("paid"),
+                        citationQueryResult.getInt("officer_id"),
+                        citationQueryResult.getInt("driver_id"),
+                        "Citation Offense"));
+            }
+
+            if (warrantQueryResult.next()) {
+                newDriver.getOffenses().add(new Offense(warrantQueryResult.getInt("id"),
+                        warrantQueryResult.getDate("date"),
+                        warrantQueryResult.getBigDecimal("fine"),
+                        warrantQueryResult.getByte("paid"),
+                        warrantQueryResult.getInt("officer_id"),
+                        warrantQueryResult.getInt("driver_id"),
+                        "Warrant Offense"));
+            }
+
+            return newDriver;
         }
 
         catch (Exception ex) {
             return null;
         }
     }
+
     public int insertOffense(Offense offense) {
         // Inserts a new offense and returns its database ID
         int offenseID;
@@ -154,6 +153,7 @@ public class DBConnection {
         }
         return offenseID;
     }
+
     public void insertCitation(Citation citation) {
         // Inserts a new citation
         try {
@@ -179,6 +179,7 @@ public class DBConnection {
             e.printStackTrace();
         }
     }
+
     public void insertDriver(Driver driver) {
         try {
             String query = "insert into `driver`(name,suspended,revoked,birthday,license) values ('" +
