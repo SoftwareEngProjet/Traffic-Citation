@@ -191,4 +191,30 @@ public class DBConnection {
             e.printStackTrace();
         }
     }
+
+    public void insertWarrant(Warrant warrant) {
+        try {
+            String query = "INSERT INTO warrant (offense_id, description) VALUES (" + warrant.getOffenseId() + ",'" + warrant.getDescription() + "');";
+            Statement stmt = connect.createStatement();
+            stmt.executeUpdate(query);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertTicket(Ticket ticket) {
+        try {
+            String query = "INSERT INTO ticket (offense_id) VALUES (" + ticket.getOffenseId() + ");";
+            Statement stmt = connect.createStatement();
+            stmt.executeUpdate(query);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertSchool(School school) {
+
+    }
 }

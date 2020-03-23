@@ -58,14 +58,6 @@ public class Main extends Application {
     private TextField newCitationOfficerID = new TextField();
     private TextField newCitationDriverID = new TextField();
     private TextField newCitationVehicleID = new TextField();
-//    private TextField newCitationLicense = new TextField();
-//    private TextField newCitationMake = new TextField();
-//    private CheckBox isStolen = new CheckBox("Stolen? (Check if yes.)");
-//    private HBox isStolenHBox = new HBox(isStolen);
-//    private CheckBox isRegistered = new CheckBox("Registered? (Check if yes.)");
-//    private HBox isRegisteredHbox = new HBox(isRegistered);
-//    private CheckBox isWanted = new CheckBox("Wanted? (Check is yes.)");
-//    private HBox isWantedHbox = new HBox(isWanted);
     private Button newCitationSave = new Button("Save");
 
 
@@ -216,11 +208,9 @@ public class Main extends Application {
             public void handle(ActionEvent event) {
                 //ATTN Matt: This is the save button for a new citation that you will need to manipulate for saving to a database.
                 // gets the current date for date of offense
-                System.out.println(newCitationDate.getValue());
-
                 Offense offense = new Offense(
                         0,
-                        new Date(Calendar.getInstance().getTime().getTime()),
+                        Date.valueOf(newCitationDate.getValue()),
                         new BigDecimal(newCitationFine.getText()),
                         (byte)((isPaid.isSelected())?1:0),
                         Integer.parseInt(newCitationOfficerID.getText()),
@@ -379,6 +369,18 @@ public class Main extends Application {
         newWarrantSave.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 //ATTN Matt: This is the save button for a new warrant that you will need to manipulate for saving to a database.
+                Offense offense = new Offense(
+                        0,
+                        Date.valueOf(newWarrantDate.getValue()),
+                        new BigDecimal(newWarrantFine.getText()),
+                        (byte)((warrantIsPaid.isSelected())?1:0),
+                        Integer.parseInt(newWarrantOfficerID.getText()),
+                        Integer.parseInt(newWarrantDriverID.getText())
+                );
+                DBConnection db = new DBConnection();
+                int offense_id = db.insertOffense(offense);
+                Warrant warrant = new Warrant(offense_id, newWarrantDescription.getText());
+                db.insertWarrant(warrant);
             }
         });
 
@@ -422,7 +424,18 @@ public class Main extends Application {
         newTicketSave.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 //ATTN Matt: This is the save button for a new warrant that you will need to manipulate for saving to a database.
-
+                Offense offense = new Offense(
+                        0,
+                        Date.valueOf(newTicketDate.getValue()),
+                        new BigDecimal(newTicketFine.getText()),
+                        (byte)((ticketIsPaid.isSelected())?1:0),
+                        Integer.parseInt(newTicketOfficerID.getText()),
+                        Integer.parseInt(newTicketDriverID.getText())
+                );
+                DBConnection db = new DBConnection();
+                int offense_id = db.insertOffense(offense);
+                Ticket ticket = new Ticket(offense_id);
+                db.insertTicket(ticket);
             }
         });
 
@@ -455,6 +468,24 @@ public class Main extends Application {
         drivingSchoolSave.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 //ATTN Matt: This is the save button for a new warrant that you will need to manipulate for saving to a database.
+                School school;
+                if(secondDay.getValue() == null) {
+                    school = new School(
+                            0,
+                            Date.valueOf(firstDay.getValue()),
+                            Integer.parseInt(schoolDriverID.getText())
+                    );
+                } else {
+                    school = new School(
+                            0,
+                            Date.valueOf(firstDay.getValue()),
+                            Date.valueOf(secondDay.getValue()),
+                            Integer.parseInt(schoolDriverID.getText())
+                    );
+                }
+                DBConnection db = new DBConnection();
+                System.out.println(secondDay.getValue());
+                db.insertSchool(school);
             }
         });
 
