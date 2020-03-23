@@ -48,7 +48,7 @@ public class Main extends Application {
     private TableView showVehiclesTable = new TableView();
     //private VBox showVehiclesTableVbox = new Vbox(show
 
-
+    private TextField driverLookupSearch = new TextField();
 
     //NEW CITATION BUTTONS AND TEXT FIELDS:
     private DatePicker newCitationDate = new DatePicker();
@@ -166,14 +166,19 @@ public class Main extends Application {
         //These are event handlers for viewing data from the database.
         btndriverLookup.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                GridPane showCitationsPane = new GridPane();
+                GridPane driverLookupPane = new GridPane();
                 Stage stage = new Stage();
                 stage.setTitle("Driver Lookup");
-                showCitationsPane.add(showCitationsTable, 0, 0);
+
+                driverLookupPane.add(new Label("Search: "), 0, 2);
+                driverLookupPane.add(driverLookupSearch, 0, 3);
+
+                //Driver d = new lookupDriver(driverLookupSearch.getText());
+
+                driverLookupPane.add(showCitationsTable, 0, 4);
                 showCitationsTable.setPrefWidth(450);
 
-
-                stage.setScene(new Scene(showCitationsPane, 450, 300));
+                stage.setScene(new Scene(driverLookupPane, 450, 450));
                 stage.show();
             }
         });
