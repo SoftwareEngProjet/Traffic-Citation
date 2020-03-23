@@ -173,6 +173,63 @@ public class DBConnection {
         }
     }
 
+    public void insertVehicle(Vehicle vehicle) {
+        // insert a new vehicle
+        try {
+            String query = "insert into vehicle (license, make,stolen, registered, wanted, driver_id)\n" +
+                    "values ('" + vehicle.getLicense() + "', '" + vehicle.getMake() + "', " + vehicle.getStolen()
+                    + "," + vehicle.getRegistered() + "," + vehicle.getWanted() + "," + vehicle.getDriverId() + ");";
+            Statement stmt = connect.createStatement();
+            stmt.executeUpdate(query);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void insertDriver(Driver driver) {
+        try {
+            String query = "insert into `driver`(name,suspended,revoked,birthday,license) values ('" +
+                    driver.getName() + "'," + driver.getSuspended() + ',' + driver.getRevoked() + ",'" + driver.getBirthday() +
+                    "', '" + driver.getLicense() + "');";
+            Statement stmt = connect.createStatement();
+            stmt.executeUpdate(query);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void insertWarrant(Warrant warrant) {
+        try {
+            String query = "INSERT INTO warrant (offense_id, description) VALUES (" + warrant.getOffenseId() + ",'" + warrant.getDescription() + "');";
+            Statement stmt = connect.createStatement();
+            stmt.executeUpdate(query);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void insertTicket(Ticket ticket) {
+        try {
+            String query = "INSERT INTO ticket (offense_id) VALUES (" + ticket.getOffenseId() + ");";
+            Statement stmt = connect.createStatement();
+            stmt.executeUpdate(query);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertSchool(School school) {
+        try {
+            String query = "INSERT INTO school (day_one, day_two, driver_id) VALUES ('" + school.getDayOne() + "','" + school.getDayTwo() + "'," + school.getDriverId() +
+                    ");";
+            Statement stmt = connect.createStatement();
+            stmt.executeUpdate(query);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

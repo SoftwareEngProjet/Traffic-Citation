@@ -1,5 +1,8 @@
 package UI;
 
+import Entities.Citation;
+import Entities.DBConnection;
+import Entities.Driver;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,6 +25,7 @@ import java.util.Calendar;
 import Entities.*;
 
 public class Main extends Application {
+    private DBConnection db = new DBConnection();
 
     //MAIN MENU BUTTONS:
    private Button btndriverLookup = new Button("Driver Lookup");
@@ -36,12 +40,16 @@ public class Main extends Application {
 
 
    //Tables for viewing the database information
-   private TableView showOffenses = new TableView();
+   private TableView showCitationsTable = new TableView();
    //private VBox showCitationsTableVBox = new VBox(showCitationsTable);
 
+   private TableView showDriversTable = new TableView();
+    //private VBox showDriversTableVBox = new VBox(showVehiclesTable);
+
+    private TableView showVehiclesTable = new TableView();
+    //private VBox showVehiclesTableVbox = new Vbox(show
 
     private TextField driverLookupSearch = new TextField();
-    private Button driverLookUpButton = new Button("Search");
 
     //NEW CITATION BUTTONS AND TEXT FIELDS:
     private DatePicker newCitationDate = new DatePicker();
@@ -82,13 +90,40 @@ public class Main extends Application {
     private HBox vehicleIsWantedHbox = new HBox(vehicleIsWanted);
     private Button newVehicleSave = new Button("Save");
 
-    //NEW WARRANT BUTTONS AND TEXT FIELDS
-    private TextField newWarrantOffenseID = new TextField();
+    //NEW WARRANT BUTTONS AND TEXT FIELDS:
+    private DatePicker newWarrantDate = new DatePicker();
+    private TextField newWarrantFine = new TextField();
+    private CheckBox warrantIsPaid = new CheckBox("Paid? (Check if yes.)");
+    private HBox warrantIsPaidHBox = new HBox(warrantIsPaid);
+    private TextField newWarrantOfficerID = new TextField();
+    private TextField newWarrantDriverID = new TextField();
+    private TextField newWarrantLicense = new TextField();
+    private TextField newWarrantMake = new TextField();
+    private CheckBox warrantIsStolen = new CheckBox("Stolen? (Check if yes.)");
+    private HBox warrantIsStolenHBox = new HBox(warrantIsStolen);
+    private CheckBox warrantIsRegistered = new CheckBox("Registered? (Check if yes.)");
+    private HBox warrantIsRegisteredHbox = new HBox(warrantIsRegistered);
+    private CheckBox warrantIsWanted = new CheckBox("Wanted? (Check is yes.)");
+    private HBox warrantIsWantedHbox = new HBox(warrantIsWanted);
     private TextField newWarrantDescription = new TextField();
     private Button newWarrantSave = new Button("Save");
 
     //NEW TICKET BUTTONS AND TEXT FIELDS
-    private TextField newTicketOffenseID = new TextField();
+    private DatePicker newTicketDate = new DatePicker();
+    private TextField newTicketFine = new TextField();
+    private CheckBox ticketIsPaid = new CheckBox("Paid? (Check if yes.)");
+    private HBox ticketIsPaidHBox = new HBox(ticketIsPaid);
+    private TextField newTicketOfficerID = new TextField();
+    private TextField newTicketDriverID = new TextField();
+    private TextField newTicketLicense = new TextField();
+    private TextField newTicketMake = new TextField();
+    private CheckBox ticketIsStolen = new CheckBox("Stolen? (Check if yes.)");
+    private HBox ticketIsStolenHBox = new HBox(ticketIsStolen);
+    private CheckBox ticketIsRegistered = new CheckBox("Registered? (Check if yes.)");
+    private HBox ticketIsRegisteredHbox = new HBox(ticketIsRegistered);
+    private CheckBox ticketIsWanted = new CheckBox("Wanted? (Check is yes.)");
+    private HBox ticketIsWantedHbox = new HBox(ticketIsWanted);
+    private TextField newTicketDescription = new TextField();
     private Button newTicketSave = new Button("Save");
 
 
@@ -138,31 +173,17 @@ public class Main extends Application {
 
                 driverLookupPane.add(new Label("Search: "), 0, 2);
                 driverLookupPane.add(driverLookupSearch, 0, 3);
-                driverLookupPane.add(driverLookUpButton, 0, 5);
-                driverLookupPane.setAlignment(Pos.TOP_CENTER);
-
-                stage.setScene(new Scene(driverLookupPane, 200, 150));
-                stage.show();
-            }
-        });
-
-        driverLookUpButton.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                GridPane searchingPane = new GridPane();
-                Stage stage = new Stage();
-
-                searchingPane.add(showOffenses, 0, 4);
-                showOffenses.setPrefWidth(450);
 
                 //Driver d = new lookupDriver(driverLookupSearch.getText());
 
-                searchingPane.setVgap(5);
-                stage.setResizable(false);
-                stage.setTitle("Search");
-                stage.setScene(new Scene(searchingPane, 275, 190));
+                driverLookupPane.add(showCitationsTable, 0, 4);
+                showCitationsTable.setPrefWidth(450);
+
+                stage.setScene(new Scene(driverLookupPane, 450, 450));
                 stage.show();
             }
         });
+
 
 
         //These event handlers are for adding new entities to the DB.
@@ -226,7 +247,7 @@ public class Main extends Application {
                         (byte)((isPaid.isSelected())?1:0),
                         Integer.parseInt(newCitationOfficerID.getText()),
                         Integer.parseInt(newCitationDriverID.getText()),
-                        ""
+                        "Citation Offense"
                 );
                 DBConnection db = new DBConnection();
                 int offense_id = db.insertOffense(offense);
@@ -339,23 +360,52 @@ public class Main extends Application {
                 Stage stage = new Stage();
 
                 newWarrantPane.add(new Label("Create New Warrant"), 0, 0);
-                newWarrantPane.add(new Label("Offense ID: "), 0, 2);
-                newWarrantPane.add(newWarrantOffenseID, 1, 2);
-                newWarrantOffenseID.setPrefWidth(150);
+
+                newWarrantPane.add(new Label("Date of Offense: "), 0, 2);
+                newWarrantPane.add(newWarrantDate, 1 , 2);
+                newWarrantDate.setPrefWidth(150);
+
+                newWarrantPane.add(new Label("Fine Amount: "), 0, 3);
+                newWarrantPane.add(newWarrantFine, 1, 3);
+                newWarrantFine.setPrefWidth(150);
+
+                newWarrantPane.add(warrantIsPaidHBox, 1, 4);
+
+                newWarrantPane.add(new Label("Officer ID Number: "), 0, 5);
+                newWarrantPane.add(newWarrantOfficerID, 1, 5);
+                newWarrantOfficerID.setPrefWidth(150);
 
 
-                newWarrantPane.add(new Label("Offense Description: "),0 , 3);
-                newWarrantPane.add(newWarrantDescription, 1, 3);
+                newWarrantPane.add(new Label("Driver ID Number: "), 0, 7);
+                newWarrantPane.add(newWarrantDriverID, 1, 7);
+                newWarrantDriverID.setPrefWidth(150);
+
+                newWarrantPane.add(new Label("Vehicle License: "), 0, 8);
+                newWarrantPane.add(newWarrantLicense, 1, 8);
+                newWarrantLicense.setPrefWidth(150);
+
+                newWarrantPane.add(new Label("Vehicle Make: "), 0, 9 );
+                newWarrantPane.add(newWarrantMake, 1, 9);
+                newWarrantMake.setPrefWidth(150);
+
+                newWarrantPane.add(warrantIsStolenHBox, 1, 10);
+                newWarrantPane.add(warrantIsRegisteredHbox, 1, 11);
+                newWarrantPane.add(warrantIsWantedHbox, 1, 12);
+
+
+
+                newWarrantPane.add(new Label("Offense Description: "),0 , 13);
+                newWarrantPane.add(newWarrantDescription, 1, 13);
                 newWarrantDescription.setPrefWidth(150);
                 newWarrantDescription.setPrefHeight(65);
 
 
-                newWarrantPane.add(newWarrantSave, 1, 4);
+                newWarrantPane.add(newWarrantSave, 1, 14);
 
                 newWarrantPane.setVgap(5);
                 stage.setResizable(false);
                 stage.setTitle("Create New Warrant");
-                stage.setScene(new Scene(newWarrantPane, 375, 350));
+                stage.setScene(new Scene(newWarrantPane, 375, 450));
                 stage.show();
             }
         });
@@ -372,17 +422,46 @@ public class Main extends Application {
                 Stage stage = new Stage();
 
                 newTicketPane.add(new Label("Create New Ticket"), 0, 0);
-                newTicketPane.add(new Label("Offense ID: "), 0, 2);
-                newTicketPane.add(newTicketOffenseID, 1, 2);
-                newTicketOffenseID.setPrefWidth(150);
 
 
-                newTicketPane.add(newTicketSave, 1, 4);
+                newTicketPane.add(new Label("Date of Offense: "), 0, 2);
+                newTicketPane.add(newTicketDate, 1 , 2);
+                newTicketDate.setPrefWidth(150);
+
+                newTicketPane.add(new Label("Fine Amount: "), 0, 3);
+                newTicketPane.add(newTicketFine, 1, 3);
+                newTicketFine.setPrefWidth(150);
+
+                newTicketPane.add(ticketIsPaidHBox, 1, 4);
+
+                newTicketPane.add(new Label("Officer ID Number: "), 0, 5);
+                newTicketPane.add(newTicketOfficerID, 1, 5);
+                newTicketOfficerID.setPrefWidth(150);
+
+
+                newTicketPane.add(new Label("Driver ID Number: "), 0, 7);
+                newTicketPane.add(newTicketDriverID, 1, 7);
+                newTicketDriverID.setPrefWidth(150);
+
+                newTicketPane.add(new Label("Vehicle License: "), 0, 8);
+                newTicketPane.add(newTicketLicense, 1, 8);
+                newTicketLicense.setPrefWidth(150);
+
+                newTicketPane.add(new Label("Vehicle Make: "), 0, 9 );
+                newTicketPane.add(newTicketMake, 1, 9);
+                newTicketMake.setPrefWidth(150);
+
+                newTicketPane.add(ticketIsStolenHBox, 1, 10);
+                newTicketPane.add(ticketIsRegisteredHbox, 1, 11);
+                newTicketPane.add(ticketIsWantedHbox, 1, 12);
+
+
+                newTicketPane.add(newTicketSave, 1, 13);
 
                 newTicketPane.setVgap(5);
                 stage.setResizable(false);
                 stage.setTitle("Create New Ticket");
-                stage.setScene(new Scene(newTicketPane, 275, 190));
+                stage.setScene(new Scene(newTicketPane, 275, 420));
                 stage.show();
             }
         });
@@ -439,9 +518,6 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        DBConnection db = new DBConnection();
-        db.lookupDriver("F0134-53234-12562");
-
         Application.launch();
     }
 }
