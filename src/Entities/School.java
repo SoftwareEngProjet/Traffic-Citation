@@ -44,6 +44,13 @@ public class School {
         this.driverId = driverId;
     }
 
+    public School(Integer id, Date dayOne, Integer driverId) {
+        this.id = id;
+        this.dayOne = dayOne;
+        this.driverId = driverId;
+    }
+
+
     /* --- Class Methods Below ---
      * 1. ID
      * 2. Day One
