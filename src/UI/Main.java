@@ -16,10 +16,7 @@ import javafx.stage.Stage;
 import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -30,12 +27,15 @@ import Entities.*;
 public class Main extends Application {
 
     //MAIN MENU BUTTONS:
-   private Button btnShowCitations = new Button("View All Citations");
-   private Button btnShowDrivers = new Button("View All Drivers");
-   private Button btnShowVehicles = new Button("View All Vehicles");
+   private Button btndriverLookup = new Button("Driver Lookup");
+
+
    private Button btnCreateNewCitation = new Button("Create New Citation");
    private Button btnCreateNewDriver = new Button("Create New Driver");
    private Button btnCreateNewVehicle = new Button("Create New Vehicle");
+   private Button btnCreateNewWarrant = new Button("Create New Warrant");
+   private Button btnCreateNewTicket = new Button("Create New Ticket");
+   private Button btnDrivingSchool = new Button("Driving School");
 
 
    //Tables for viewing the database information
@@ -47,6 +47,7 @@ public class Main extends Application {
 
     private TableView showVehiclesTable = new TableView();
     //private VBox showVehiclesTableVbox = new Vbox(show
+
 
 
     //NEW CITATION BUTTONS AND TEXT FIELDS:
@@ -77,8 +78,32 @@ public class Main extends Application {
     private Button newDriverSave = new Button("Save");
 
     //NEW VEHICLE BUTTONS AND TEXT FIELDS
+    private TextField newVehicleDriverID = new TextField();
+    private TextField newVehicleLicense = new TextField();
+    private TextField newVehicleMake = new TextField();
+    private CheckBox vehicleIsStolen = new CheckBox("Stolen? (Check if yes.)");
+    private HBox vehicleIsStolenHBox = new HBox(vehicleIsStolen);
+    private CheckBox vehicleIsRegistered = new CheckBox("Registered? (Check if yes.)");
+    private HBox vehicleIsRegisteredHbox = new HBox(vehicleIsRegistered);
+    private CheckBox vehicleIsWanted = new CheckBox("Wanted? (Check is yes.)");
+    private HBox vehicleIsWantedHbox = new HBox(vehicleIsWanted);
+    private Button newVehicleSave = new Button("Save");
+
+    //NEW WARRANT BUTTONS AND TEXT FIELDS
+    private TextField newWarrantOffenseID = new TextField();
+    private TextField newWarrantDescription = new TextField();
+    private Button newWarrantSave = new Button("Save");
+
+    //NEW TICKET BUTTONS AND TEXT FIELDS
+    private TextField newTicketOffenseID = new TextField();
+    private Button newTicketSave = new Button("Save");
 
 
+    //DRIVING SCHOOL BUTTONS AND TEXT FIELDS
+    private TextField firstDay = new TextField();
+    private TextField secondDay = new TextField();
+    private TextField schoolDriverID = new TextField();
+    private Button drivingSchoolSave = new Button("Save");
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -90,30 +115,33 @@ public class Main extends Application {
 
         //Display all the buttons, and make a lable above those buttons.
         panel.add(new Label("Sault Ste. Marie Traffic Citations"), 2, 0);
-        panel.add(btnShowCitations, 0, 1);
-        panel.add(btnShowDrivers, 0, 2);
-        panel.add(btnShowVehicles, 0 ,3);
+        panel.add(btndriverLookup, 0, 1);
+        panel.add(btnDrivingSchool,0, 2);
 
         panel.add(btnCreateNewCitation, 3, 1);
         panel.add(btnCreateNewDriver, 3, 2);
-        //panel.add(btnCreateNewVehicle, 3, 3);
+        panel.add(btnCreateNewVehicle, 3, 3);
+        panel.add(btnCreateNewWarrant, 3, 4);
+        panel.add(btnCreateNewTicket, 3, 5);
 
-        btnShowCitations.setPrefWidth(150);
-        btnShowDrivers.setPrefWidth(150);
-        btnShowVehicles.setPrefWidth(150);
+        btndriverLookup.setPrefWidth(150);
+        btnDrivingSchool.setPrefWidth(150);
         btnCreateNewCitation.setPrefWidth(150);
         btnCreateNewDriver.setPrefWidth(150);
         btnCreateNewVehicle.setPrefWidth(150);
+        btnCreateNewWarrant.setPrefWidth(150);
+        btnCreateNewTicket.setPrefWidth(150);
+
 
 
 
         //Event handlers for when the buttons are pushed:
         //These are event handlers for viewing data from the database.
-        btnShowCitations.setOnAction(new EventHandler<ActionEvent>() {
+        btndriverLookup.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 GridPane showCitationsPane = new GridPane();
                 Stage stage = new Stage();
-                stage.setTitle("Traffic Citations");
+                stage.setTitle("Driver Lookup");
                 showCitationsPane.add(showCitationsTable, 0, 0);
                 showCitationsTable.setPrefWidth(450);
 
@@ -124,33 +152,6 @@ public class Main extends Application {
         });
 
 
-        btnShowVehicles.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                GridPane showVehiclesPane = new GridPane();
-                Stage stage = new Stage();
-                stage.setTitle("All Vehicles");
-                showVehiclesPane.add(showVehiclesTable, 0, 0);
-                showVehiclesTable.setPrefWidth(450);
-
-
-                stage.setScene(new Scene(showVehiclesPane, 450, 300));
-                stage.show();
-            }
-        });
-
-        btnShowDrivers.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                GridPane showDriversPane = new GridPane();
-                Stage stage = new Stage();
-                stage.setTitle("Show Drivers");
-                showDriversPane.add(showDriversTable, 0, 0);
-                showDriversTable.setPrefWidth(450);
-
-
-                stage.setScene(new Scene(showDriversPane, 450, 300));
-                stage.show();
-            }
-        });
 
         //These event handlers are for adding new entities to the DB.
         btnCreateNewCitation.setOnAction(new EventHandler<ActionEvent>() {
@@ -257,8 +258,139 @@ public class Main extends Application {
             }
         });
 
+        btnCreateNewVehicle.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                GridPane newVehiclesPane = new GridPane();
+                Stage stage = new Stage();
+
+                newVehiclesPane.add(new Label("Create New Vehicle: "), 0, 0);
 
 
+                newVehiclesPane.add(new Label("Driver ID Number: "), 0, 1);
+                newVehiclesPane.add(newVehicleDriverID, 1, 1);
+                newVehicleDriverID.setPrefWidth(150);
+
+                newVehiclesPane.add(new Label("Vehicle License: "), 0, 2);
+                newVehiclesPane.add(newVehicleLicense, 1, 2);
+                newVehicleLicense.setPrefWidth(150);
+
+                newVehiclesPane.add(new Label("Vehicle Make: "), 0, 3 );
+                newVehiclesPane.add(newVehicleMake, 1, 3);
+                newVehicleMake.setPrefWidth(150);
+
+                newVehiclesPane.add(vehicleIsStolenHBox, 1, 4);
+                newVehiclesPane.add(vehicleIsRegisteredHbox, 1, 5);
+                newVehiclesPane.add(vehicleIsWantedHbox, 1, 6);
+
+                newVehiclesPane.add(newVehicleSave, 1, 7);
+
+
+                newVehiclesPane.setVgap(5);
+                newVehiclesPane.isResizable();
+                stage.setResizable(false);
+                stage.setTitle("Create New Vehicle");
+                stage.setScene(new Scene(newVehiclesPane, 390, 400));
+                stage.show();
+            }
+        });
+
+        newVehicleSave.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                //ATTN Matt: This is the save button for a new vehicle that you will need to manipulate for saving to a database.
+            }
+        });
+
+        btnCreateNewWarrant.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                GridPane newWarrantPane = new GridPane();
+                Stage stage = new Stage();
+
+                newWarrantPane.add(new Label("Create New Warrant"), 0, 0);
+                newWarrantPane.add(new Label("Offense ID: "), 0, 2);
+                newWarrantPane.add(newWarrantOffenseID, 1, 2);
+                newWarrantOffenseID.setPrefWidth(150);
+
+
+                newWarrantPane.add(new Label("Offense Description: "),0 , 3);
+                newWarrantPane.add(newWarrantDescription, 1, 3);
+                newWarrantDescription.setPrefWidth(150);
+                newWarrantDescription.setPrefHeight(65);
+
+
+                newWarrantPane.add(newWarrantSave, 1, 4);
+
+                newWarrantPane.setVgap(5);
+                stage.setResizable(false);
+                stage.setTitle("Create New Warrant");
+                stage.setScene(new Scene(newWarrantPane, 375, 350));
+                stage.show();
+            }
+        });
+
+        newWarrantSave.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                //ATTN Matt: This is the save button for a new warrant that you will need to manipulate for saving to a database.
+            }
+        });
+
+        btnCreateNewTicket.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                GridPane newTicketPane = new GridPane();
+                Stage stage = new Stage();
+
+                newTicketPane.add(new Label("Create New Ticket"), 0, 0);
+                newTicketPane.add(new Label("Offense ID: "), 0, 2);
+                newTicketPane.add(newTicketOffenseID, 1, 2);
+                newTicketOffenseID.setPrefWidth(150);
+
+
+                newTicketPane.add(newTicketSave, 1, 4);
+
+                newTicketPane.setVgap(5);
+                stage.setResizable(false);
+                stage.setTitle("Create New Ticket");
+                stage.setScene(new Scene(newTicketPane, 275, 190));
+                stage.show();
+            }
+        });
+
+        newTicketSave.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                //ATTN Matt: This is the save button for a new warrant that you will need to manipulate for saving to a database.
+            }
+        });
+
+        btnDrivingSchool.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                GridPane drivingSchoolPane = new GridPane();
+                Stage stage = new Stage();
+
+                drivingSchoolPane.add(new Label("Driving School"), 0, 0);
+                drivingSchoolPane.add(new Label("Day One: "), 0, 2);
+                drivingSchoolPane.add(firstDay, 1, 2);
+                firstDay.setPrefWidth(150);
+
+                drivingSchoolPane.add(new Label("Day Two: "), 0, 3);
+                drivingSchoolPane.add(secondDay,1, 3);
+
+                drivingSchoolPane.add(new Label("Driver ID:"), 0, 4);
+                drivingSchoolPane.add(schoolDriverID, 1, 4);
+
+                drivingSchoolPane.add(drivingSchoolSave, 1, 5);
+
+                drivingSchoolPane.setVgap(5);
+                stage.setResizable(false);
+                stage.setTitle("Create New Ticket");
+                stage.setScene(new Scene(drivingSchoolPane, 275, 190));
+                stage.show();
+            }
+        });
+
+        drivingSchoolSave.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                //ATTN Matt: This is the save button for a new warrant that you will need to manipulate for saving to a database.
+            }
+        });
 
         panel.setAlignment(Pos.TOP_CENTER);
 
