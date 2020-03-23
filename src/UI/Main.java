@@ -39,16 +39,12 @@ public class Main extends Application {
 
 
    //Tables for viewing the database information
-   private TableView showCitationsTable = new TableView();
+   private TableView showOffenses = new TableView();
    //private VBox showCitationsTableVBox = new VBox(showCitationsTable);
 
-   private TableView showDriversTable = new TableView();
-    //private VBox showDriversTableVBox = new VBox(showVehiclesTable);
-
-    private TableView showVehiclesTable = new TableView();
-    //private VBox showVehiclesTableVbox = new Vbox(show
 
     private TextField driverLookupSearch = new TextField();
+    private Button driverLookUpButton = new Button("Search");
 
     //NEW CITATION BUTTONS AND TEXT FIELDS:
     private DatePicker newCitationDate = new DatePicker();
@@ -172,17 +168,31 @@ public class Main extends Application {
 
                 driverLookupPane.add(new Label("Search: "), 0, 2);
                 driverLookupPane.add(driverLookupSearch, 0, 3);
+                driverLookupPane.add(driverLookUpButton, 0, 5);
+                driverLookupPane.setAlignment(Pos.TOP_CENTER);
 
-                //Driver d = new lookupDriver(driverLookupSearch.getText());
-
-                driverLookupPane.add(showCitationsTable, 0, 4);
-                showCitationsTable.setPrefWidth(450);
-
-                stage.setScene(new Scene(driverLookupPane, 450, 450));
+                stage.setScene(new Scene(driverLookupPane, 200, 150));
                 stage.show();
             }
         });
 
+        driverLookUpButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                GridPane searchingPane = new GridPane();
+                Stage stage = new Stage();
+
+                searchingPane.add(showOffenses, 0, 4);
+                showOffenses.setPrefWidth(450);
+
+                //Driver d = new lookupDriver(driverLookupSearch.getText());
+
+                searchingPane.setVgap(5);
+                stage.setResizable(false);
+                stage.setTitle("Search");
+                stage.setScene(new Scene(searchingPane, 275, 190));
+                stage.show();
+            }
+        });
 
 
         //These event handlers are for adding new entities to the DB.
