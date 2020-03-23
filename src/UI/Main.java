@@ -36,16 +36,12 @@ public class Main extends Application {
 
 
    //Tables for viewing the database information
-   private TableView showCitationsTable = new TableView();
+   private TableView showOffenses = new TableView();
    //private VBox showCitationsTableVBox = new VBox(showCitationsTable);
 
-   private TableView showDriversTable = new TableView();
-    //private VBox showDriversTableVBox = new VBox(showVehiclesTable);
 
-    private TableView showVehiclesTable = new TableView();
-    //private VBox showVehiclesTableVbox = new Vbox(show
-
-
+    private TextField driverLookupSearch = new TextField();
+    private Button driverLookUpButton = new Button("Search");
 
     //NEW CITATION BUTTONS AND TEXT FIELDS:
     private DatePicker newCitationDate = new DatePicker();
@@ -136,18 +132,37 @@ public class Main extends Application {
         //These are event handlers for viewing data from the database.
         btndriverLookup.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                GridPane showCitationsPane = new GridPane();
+                GridPane driverLookupPane = new GridPane();
                 Stage stage = new Stage();
                 stage.setTitle("Driver Lookup");
-                showCitationsPane.add(showCitationsTable, 0, 0);
-                showCitationsTable.setPrefWidth(450);
 
+                driverLookupPane.add(new Label("Search: "), 0, 2);
+                driverLookupPane.add(driverLookupSearch, 0, 3);
+                driverLookupPane.add(driverLookUpButton, 0, 5);
+                driverLookupPane.setAlignment(Pos.TOP_CENTER);
 
-                stage.setScene(new Scene(showCitationsPane, 450, 300));
+                stage.setScene(new Scene(driverLookupPane, 200, 150));
                 stage.show();
             }
         });
 
+        driverLookUpButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                GridPane searchingPane = new GridPane();
+                Stage stage = new Stage();
+
+                searchingPane.add(showOffenses, 0, 4);
+                showOffenses.setPrefWidth(450);
+
+                //Driver d = new lookupDriver(driverLookupSearch.getText());
+
+                searchingPane.setVgap(5);
+                stage.setResizable(false);
+                stage.setTitle("Search");
+                stage.setScene(new Scene(searchingPane, 275, 190));
+                stage.show();
+            }
+        });
 
 
         //These event handlers are for adding new entities to the DB.
@@ -253,6 +268,15 @@ public class Main extends Application {
         newDriverSave.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 //ATTN Matt: This is the save button for a new driver that you will need to manipulate for saving to a database.
+//                Driver driver = new Driver(
+//                        0,
+//                        newDriverName.getText(),
+//                        (byte)((isSuspended.isSelected())?1:0),
+//                        (byte)((isRevoked.isSelected())?1:0),
+//                        Date.valueOf(newDriverBirthday.getText()),
+//                        newDriverLicense.getText());
+//                DBConnection db = new DBConnection();
+//                db.insertDriver(driver);
             }
         });
 
@@ -295,6 +319,17 @@ public class Main extends Application {
         newVehicleSave.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 //ATTN Matt: This is the save button for a new vehicle that you will need to manipulate for saving to a database.
+                Vehicle vehicle = new Vehicle(
+                        0,
+                        newVehicleLicense.getText(),
+                        newVehicleMake.getText(),
+                        (byte)((isStolen.isSelected())?1:0),
+                        (byte)((isRegistered.isSelected())?1:0),
+                        (byte)((isWanted.isSelected())?1:0),
+                        Integer.parseInt(newVehicleDriverID.getText())
+                );
+                DBConnection db = new DBConnection();
+                db.insertVehicle(vehicle);
             }
         });
 
