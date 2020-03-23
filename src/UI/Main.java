@@ -57,14 +57,15 @@ public class Main extends Application {
     private HBox isPaidHBox = new HBox(isPaid);
     private TextField newCitationOfficerID = new TextField();
     private TextField newCitationDriverID = new TextField();
-    private TextField newCitationLicense = new TextField();
-    private TextField newCitationMake = new TextField();
-    private CheckBox isStolen = new CheckBox("Stolen? (Check if yes.)");
-    private HBox isStolenHBox = new HBox(isStolen);
-    private CheckBox isRegistered = new CheckBox("Registered? (Check if yes.)");
-    private HBox isRegisteredHbox = new HBox(isRegistered);
-    private CheckBox isWanted = new CheckBox("Wanted? (Check is yes.)");
-    private HBox isWantedHbox = new HBox(isWanted);
+    private TextField newCitationVehicleID = new TextField();
+//    private TextField newCitationLicense = new TextField();
+//    private TextField newCitationMake = new TextField();
+//    private CheckBox isStolen = new CheckBox("Stolen? (Check if yes.)");
+//    private HBox isStolenHBox = new HBox(isStolen);
+//    private CheckBox isRegistered = new CheckBox("Registered? (Check if yes.)");
+//    private HBox isRegisteredHbox = new HBox(isRegistered);
+//    private CheckBox isWanted = new CheckBox("Wanted? (Check is yes.)");
+//    private HBox isWantedHbox = new HBox(isWanted);
     private Button newCitationSave = new Button("Save");
 
 
@@ -75,6 +76,7 @@ public class Main extends Application {
     private CheckBox isRevoked = new CheckBox("License Revoked? (Check if yes.) ");
     private HBox isRevokedHBox = new HBox(isRevoked);
     private DatePicker newDriverBirthday = new DatePicker();
+    private TextField newDriverLicense = new TextField();
     private Button newDriverSave = new Button("Save");
 
     //NEW VEHICLE BUTTONS AND TEXT FIELDS
@@ -96,14 +98,6 @@ public class Main extends Application {
     private HBox warrantIsPaidHBox = new HBox(warrantIsPaid);
     private TextField newWarrantOfficerID = new TextField();
     private TextField newWarrantDriverID = new TextField();
-    private TextField newWarrantLicense = new TextField();
-    private TextField newWarrantMake = new TextField();
-    private CheckBox warrantIsStolen = new CheckBox("Stolen? (Check if yes.)");
-    private HBox warrantIsStolenHBox = new HBox(warrantIsStolen);
-    private CheckBox warrantIsRegistered = new CheckBox("Registered? (Check if yes.)");
-    private HBox warrantIsRegisteredHbox = new HBox(warrantIsRegistered);
-    private CheckBox warrantIsWanted = new CheckBox("Wanted? (Check is yes.)");
-    private HBox warrantIsWantedHbox = new HBox(warrantIsWanted);
     private TextField newWarrantDescription = new TextField();
     private Button newWarrantSave = new Button("Save");
 
@@ -114,15 +108,6 @@ public class Main extends Application {
     private HBox ticketIsPaidHBox = new HBox(ticketIsPaid);
     private TextField newTicketOfficerID = new TextField();
     private TextField newTicketDriverID = new TextField();
-    private TextField newTicketLicense = new TextField();
-    private TextField newTicketMake = new TextField();
-    private CheckBox ticketIsStolen = new CheckBox("Stolen? (Check if yes.)");
-    private HBox ticketIsStolenHBox = new HBox(ticketIsStolen);
-    private CheckBox ticketIsRegistered = new CheckBox("Registered? (Check if yes.)");
-    private HBox ticketIsRegisteredHbox = new HBox(ticketIsRegistered);
-    private CheckBox ticketIsWanted = new CheckBox("Wanted? (Check is yes.)");
-    private HBox ticketIsWantedHbox = new HBox(ticketIsWanted);
-    private TextField newTicketDescription = new TextField();
     private Button newTicketSave = new Button("Save");
 
 
@@ -211,17 +196,9 @@ public class Main extends Application {
                 newCitationsPane.add(newCitationDriverID, 1, 7);
                 newCitationDriverID.setPrefWidth(150);
 
-                newCitationsPane.add(new Label("Vehicle License: "), 0, 8);
-                newCitationsPane.add(newCitationLicense, 1, 8);
-                newCitationLicense.setPrefWidth(150);
-
-                newCitationsPane.add(new Label("Vehicle Make: "), 0, 9 );
-                newCitationsPane.add(newCitationMake, 1, 9);
-                newCitationMake.setPrefWidth(150);
-
-                newCitationsPane.add(isStolenHBox, 1, 10);
-                newCitationsPane.add(isRegisteredHbox, 1, 11);
-                newCitationsPane.add(isWantedHbox, 1, 12);
+                newCitationsPane.add(new Label("Vehicle ID: "), 0, 8);
+                newCitationsPane.add(newCitationVehicleID, 1, 8);
+                newCitationVehicleID.setPrefWidth(150);
                 
                 newCitationsPane.add(newCitationSave, 1, 17);
 
@@ -239,6 +216,8 @@ public class Main extends Application {
             public void handle(ActionEvent event) {
                 //ATTN Matt: This is the save button for a new citation that you will need to manipulate for saving to a database.
                 // gets the current date for date of offense
+                System.out.println(newCitationDate.getValue());
+
                 Offense offense = new Offense(
                         0,
                         new Date(Calendar.getInstance().getTime().getTime()),
@@ -249,8 +228,7 @@ public class Main extends Application {
                 );
                 DBConnection db = new DBConnection();
                 int offense_id = db.insertOffense(offense);
-                // TODO: Get Vehicle ID from the form
-                Citation citation = new Citation(offense_id, 0000);
+                Citation citation = new Citation(offense_id, Integer.parseInt(newCitationVehicleID.getText()));
                 db.insertCitation(citation);
             }
         });
@@ -274,7 +252,11 @@ public class Main extends Application {
                 newDriversPane.add(newDriverBirthday, 1, 5);
                 newDriverBirthday.setPrefWidth(150);
 
-                newDriversPane.add(newDriverSave, 1, 6);
+                newDriversPane.add(new Label("Driver License: "), 0, 6);
+                newDriversPane.add(newDriverLicense, 1, 6);
+                newDriverLicense.setPrefWidth(150);
+
+                newDriversPane.add(newDriverSave, 1, 7);
 
                 newDriversPane.setVgap(5);
                 stage.setResizable(false);
@@ -287,15 +269,15 @@ public class Main extends Application {
         newDriverSave.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 //ATTN Matt: This is the save button for a new driver that you will need to manipulate for saving to a database.
-//                Driver driver = new Driver(
-//                        0,
-//                        newDriverName.getText(),
-//                        (byte)((isSuspended.isSelected())?1:0),
-//                        (byte)((isRevoked.isSelected())?1:0),
-//                        Date.valueOf(newDriverBirthday.getText()),
-//                        newDriverLicense.getText());
-//                DBConnection db = new DBConnection();
-//                db.insertDriver(driver);
+                Driver driver = new Driver(
+                        0,
+                        newDriverName.getText(),
+                        (byte)((isSuspended.isSelected())?1:0),
+                        (byte)((isRevoked.isSelected())?1:0),
+                        Date.valueOf(newDriverBirthday.getValue()),
+                        newDriverLicense.getText());
+                DBConnection db = new DBConnection();
+                db.insertDriver(driver);
             }
         });
 
@@ -342,9 +324,9 @@ public class Main extends Application {
                         0,
                         newVehicleLicense.getText(),
                         newVehicleMake.getText(),
-                        (byte)((isStolen.isSelected())?1:0),
-                        (byte)((isRegistered.isSelected())?1:0),
-                        (byte)((isWanted.isSelected())?1:0),
+                        (byte)((vehicleIsStolen.isSelected())?1:0),
+                        (byte)((vehicleIsRegistered.isSelected())?1:0),
+                        (byte)((vehicleIsWanted.isSelected())?1:0),
                         Integer.parseInt(newVehicleDriverID.getText())
                 );
                 DBConnection db = new DBConnection();
@@ -377,20 +359,6 @@ public class Main extends Application {
                 newWarrantPane.add(new Label("Driver ID Number: "), 0, 7);
                 newWarrantPane.add(newWarrantDriverID, 1, 7);
                 newWarrantDriverID.setPrefWidth(150);
-
-                newWarrantPane.add(new Label("Vehicle License: "), 0, 8);
-                newWarrantPane.add(newWarrantLicense, 1, 8);
-                newWarrantLicense.setPrefWidth(150);
-
-                newWarrantPane.add(new Label("Vehicle Make: "), 0, 9 );
-                newWarrantPane.add(newWarrantMake, 1, 9);
-                newWarrantMake.setPrefWidth(150);
-
-                newWarrantPane.add(warrantIsStolenHBox, 1, 10);
-                newWarrantPane.add(warrantIsRegisteredHbox, 1, 11);
-                newWarrantPane.add(warrantIsWantedHbox, 1, 12);
-
-
 
                 newWarrantPane.add(new Label("Offense Description: "),0 , 13);
                 newWarrantPane.add(newWarrantDescription, 1, 13);
@@ -441,19 +409,6 @@ public class Main extends Application {
                 newTicketPane.add(newTicketDriverID, 1, 7);
                 newTicketDriverID.setPrefWidth(150);
 
-                newTicketPane.add(new Label("Vehicle License: "), 0, 8);
-                newTicketPane.add(newTicketLicense, 1, 8);
-                newTicketLicense.setPrefWidth(150);
-
-                newTicketPane.add(new Label("Vehicle Make: "), 0, 9 );
-                newTicketPane.add(newTicketMake, 1, 9);
-                newTicketMake.setPrefWidth(150);
-
-                newTicketPane.add(ticketIsStolenHBox, 1, 10);
-                newTicketPane.add(ticketIsRegisteredHbox, 1, 11);
-                newTicketPane.add(ticketIsWantedHbox, 1, 12);
-
-
                 newTicketPane.add(newTicketSave, 1, 13);
 
                 newTicketPane.setVgap(5);
@@ -467,6 +422,7 @@ public class Main extends Application {
         newTicketSave.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 //ATTN Matt: This is the save button for a new warrant that you will need to manipulate for saving to a database.
+
             }
         });
 
