@@ -66,7 +66,7 @@ public class DBConnection {
     //  Driver Query Methods
     public Driver lookupDriver(String licenseNumber) {
         try {
-            ResultSet queryResult = connect.createStatement().executeQuery("SELECT * FROM driver WHERE name = '" + licenseNumber + "'");
+            ResultSet queryResult = connect.createStatement().executeQuery("SELECT * FROM driver WHERE license = '" + licenseNumber + "'");
 
             // Record not found
             if (!queryResult.next())
@@ -80,20 +80,46 @@ public class DBConnection {
                                           queryResult.getString("license"));
 
             // Queries
-            String ticketQuery = "SELECT * FROM ticket JOIN offense ON ticket.offense_id = offense.id WHERE offense.driver = '" +
-                                  newDriver.getId() + "'";
-
-            String citationQuery = "SELECT * FROM citation JOIN offense ON citation.offense_id = offense.id WHERE offense.driver_id = '" +
-                    newDriver.getId() + "'";
-
-            String warrantQuery = "SELECT * FROM warrant JOIN offense ON ticket.offense_id = offense.id WHERE offense.driver = '" +
-                    newDriver.getId() + "'";
+            String ticketQuery = "SELECT * FROM ticket JOIN offense ON ticket.offense_id = offense.id WHERE offense.driver_id = '" + newDriver.getId() + "'";
+            String citationQuery = "SELECT * FROM citation JOIN offense ON citation.offense_id = offense.id WHERE offense.driver_id = '" + newDriver.getId() + "'";
+            String warrantQuery = "SELECT * FROM warrant JOIN offense ON warrant.offense_id = offense.id WHERE offense.driver_id = '" + newDriver.getId() + "'";
 
             // Execute Queries
-            ResultSet ticketQueryResult = connect.createStatement().executeQuery("SELECT * FROM driver WHERE name = '" + licenseNumber + "'");
-            ResultSet citationQueryResult = connect.createStatement().executeQuery("SELECT * FROM driver WHERE name = '" + licenseNumber + "'");
-            ResultSet warrantQueryResult = connect.createStatement().executeQuery("SELECT * FROM driver WHERE name = '" + licenseNumber + "'");
+            ResultSet ticketQueryResult = connect.createStatement().executeQuery(ticketQuery);
+            ResultSet citationQueryResult = connect.createStatement().executeQuery(citationQuery);
+            ResultSet warrantQueryResult = connect.createStatement().executeQuery(warrantQuery);
 
+            // Create Instances if we have successful queries
+            if (ticketQueryResult.next()) {
+                newDriver.getOffenses().add(new Offense(ticketQueryResult.getInt("id"),
+                                                        ticketQueryResult.getDate("date"),
+                                                        ticketQueryResult.getBigDecimal("fine"),
+                                                        ticketQueryResult.getByte("paid"),
+                                                        ticketQueryResult.getInt("officer_id"),
+                                                        ticketQueryResult.getInt("driver_id"),
+                                                        "Ticket Offense"));
+            }
+
+            if (citationQueryResult.next()) {
+                newDriver.getOffenses().add(new Offense(citationQueryResult.getInt("id"),
+                                                        citationQueryResult.getDate("date"),
+                                                        citationQueryResult.getBigDecimal("fine"),
+                                                        citationQueryResult.getByte("paid"),
+                                                        citationQueryResult.getInt("officer_id"),
+                                                        citationQueryResult.getInt("driver_id"),
+                                                        "Citation Offense"));
+            }
+
+            if (warrantQueryResult.next()) {
+                newDriver.getOffenses().add(new Offense(warrantQueryResult.getInt("id"),
+                                                        warrantQueryResult.getDate("date"),
+                                                        warrantQueryResult.getBigDecimal("fine"),
+                                                        warrantQueryResult.getByte("paid"),
+                                                        warrantQueryResult.getInt("officer_id"),
+                                                        warrantQueryResult.getInt("driver_id"),
+                                                        "Warrant Offense"));
+            }
+            
             return newDriver;
         }
 

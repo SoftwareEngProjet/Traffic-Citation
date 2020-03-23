@@ -40,6 +40,8 @@ public class Driver {
         suspended = 0;
         revoked = 0;
         birthday = new Date(new java.util.Date().getDate());
+        offenses = new ArrayList<Offense>();
+        trafficSchool = new School();
         license = "";
     }
 
@@ -51,6 +53,8 @@ public class Driver {
         this.revoked = revoked;
         this.birthday = birthday;
         this.license = license;
+        offenses = new ArrayList<Offense>();
+        trafficSchool = new School();
     }
 
     /* --- Class Methods Below ---
@@ -127,6 +131,15 @@ public class Driver {
 
     public void setLicense(String license) {
         this.license = license;
+    }
+
+    // Offense
+    public ArrayList<Offense> getOffenses() {
+        return offenses;
+    }
+
+    public void setOffenses(ArrayList<Offense> offenses) {
+        this.offenses = offenses;
     }
 
     // Other

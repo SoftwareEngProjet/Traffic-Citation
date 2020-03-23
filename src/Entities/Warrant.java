@@ -20,7 +20,7 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-public class Warrant extends Offense{
+public class Warrant {
     // Variables
     private Integer offenseId;
     private String description;
@@ -44,6 +44,8 @@ public class Warrant extends Offense{
      */
 
     // Offense Id
+    @Id
+    @Column(name = "offense_id")
     public Integer getOffenseId() {
         return offenseId;
     }
@@ -53,6 +55,8 @@ public class Warrant extends Offense{
     }
 
     // Description
+    @Basic
+    @Column(name = "description")
     public String getDescription() {
         return description;
     }

@@ -30,6 +30,7 @@ public class Offense {
     private Byte paid;
     private Integer officerId;
     private Integer driverId;
+    private String offenseType;
 
     // No-arg Constructor
     public Offense() {
@@ -39,16 +40,18 @@ public class Offense {
         paid = 0;
         officerId = 0;
         driverId = 0;
+        offenseType = "";
     }
 
     // Multi-arg Constructor
-    public Offense(Integer id, Date date, BigDecimal fine, Byte paid, Integer officerId, Integer driverId) {
+    public Offense(Integer id, Date date, BigDecimal fine, Byte paid, Integer officerId, Integer driverId, String offenseType) {
         this.id = id;
         this.date = date;
         this.fine = fine;
         this.paid = paid;
         this.officerId = officerId;
         this.driverId = driverId;
+        this.offenseType = offenseType;
     }
 
     /* --- Class Methods Below ---
@@ -124,5 +127,14 @@ public class Offense {
 
     public void setDriverId(Integer driverId) {
         this.driverId = driverId;
+    }
+
+    // Offense Type
+    public String getOffenseType() {
+        return offenseType;
+    }
+
+    public void setOffenseType(String offenseType) {
+        this.offenseType = offenseType;
     }
 }
