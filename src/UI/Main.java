@@ -89,8 +89,21 @@ public class Main extends Application {
     private HBox vehicleIsWantedHbox = new HBox(vehicleIsWanted);
     private Button newVehicleSave = new Button("Save");
 
-    //NEW WARRANT BUTTONS AND TEXT FIELDS
-    private TextField newWarrantOffenseID = new TextField();
+    //NEW WARRANT BUTTONS AND TEXT FIELDS:
+    private DatePicker newWarrantDate = new DatePicker();
+    private TextField newWarrantFine = new TextField();
+    private CheckBox warrantIsPaid = new CheckBox("Paid? (Check if yes.)");
+    private HBox warrantIsPaidHBox = new HBox(warrantIsPaid);
+    private TextField newWarrantOfficerID = new TextField();
+    private TextField newWarrantDriverID = new TextField();
+    private TextField newWarrantLicense = new TextField();
+    private TextField newWarrantMake = new TextField();
+    private CheckBox warrantIsStolen = new CheckBox("Stolen? (Check if yes.)");
+    private HBox warrantIsStolenHBox = new HBox(warrantIsStolen);
+    private CheckBox warrantIsRegistered = new CheckBox("Registered? (Check if yes.)");
+    private HBox warrantIsRegisteredHbox = new HBox(warrantIsRegistered);
+    private CheckBox warrantIsWanted = new CheckBox("Wanted? (Check is yes.)");
+    private HBox warrantIsWantedHbox = new HBox(warrantIsWanted);
     private TextField newWarrantDescription = new TextField();
     private Button newWarrantSave = new Button("Save");
 
@@ -306,23 +319,52 @@ public class Main extends Application {
                 Stage stage = new Stage();
 
                 newWarrantPane.add(new Label("Create New Warrant"), 0, 0);
-                newWarrantPane.add(new Label("Offense ID: "), 0, 2);
-                newWarrantPane.add(newWarrantOffenseID, 1, 2);
-                newWarrantOffenseID.setPrefWidth(150);
+
+                newWarrantPane.add(new Label("Date of Offense: "), 0, 2);
+                newWarrantPane.add(newWarrantDate, 1 , 2);
+                newWarrantDate.setPrefWidth(150);
+
+                newWarrantPane.add(new Label("Fine Amount: "), 0, 3);
+                newWarrantPane.add(newWarrantFine, 1, 3);
+                newWarrantFine.setPrefWidth(150);
+
+                newWarrantPane.add(warrantIsPaidHBox, 1, 4);
+
+                newWarrantPane.add(new Label("Officer ID Number: "), 0, 5);
+                newWarrantPane.add(newWarrantOfficerID, 1, 5);
+                newWarrantOfficerID.setPrefWidth(150);
 
 
-                newWarrantPane.add(new Label("Offense Description: "),0 , 3);
-                newWarrantPane.add(newWarrantDescription, 1, 3);
+                newWarrantPane.add(new Label("Driver ID Number: "), 0, 7);
+                newWarrantPane.add(newWarrantDriverID, 1, 7);
+                newWarrantDriverID.setPrefWidth(150);
+
+                newWarrantPane.add(new Label("Vehicle License: "), 0, 8);
+                newWarrantPane.add(newWarrantLicense, 1, 8);
+                newWarrantLicense.setPrefWidth(150);
+
+                newWarrantPane.add(new Label("Vehicle Make: "), 0, 9 );
+                newWarrantPane.add(newWarrantMake, 1, 9);
+                newWarrantMake.setPrefWidth(150);
+
+                newWarrantPane.add(warrantIsStolenHBox, 1, 10);
+                newWarrantPane.add(warrantIsRegisteredHbox, 1, 11);
+                newWarrantPane.add(warrantIsWantedHbox, 1, 12);
+
+
+
+                newWarrantPane.add(new Label("Offense Description: "),0 , 13);
+                newWarrantPane.add(newWarrantDescription, 1, 13);
                 newWarrantDescription.setPrefWidth(150);
                 newWarrantDescription.setPrefHeight(65);
 
 
-                newWarrantPane.add(newWarrantSave, 1, 4);
+                newWarrantPane.add(newWarrantSave, 1, 14);
 
                 newWarrantPane.setVgap(5);
                 stage.setResizable(false);
                 stage.setTitle("Create New Warrant");
-                stage.setScene(new Scene(newWarrantPane, 375, 350));
+                stage.setScene(new Scene(newWarrantPane, 375, 450));
                 stage.show();
             }
         });
