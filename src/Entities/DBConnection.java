@@ -119,7 +119,7 @@ public class DBConnection {
                                                         warrantQueryResult.getInt("driver_id"),
                                                         "Warrant Offense"));
             }
-            
+
             return newDriver;
         }
 
