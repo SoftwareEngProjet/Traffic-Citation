@@ -13,6 +13,7 @@
 package Entities;
 
 // Imports
+import java.security.spec.ECField;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.DriverManager;
@@ -129,69 +130,39 @@ public class DBConnection {
             return null;
         }
     }
-
-    public ArrayList<Driver> queryAllDrivers() {
+    public int insertOffense(Offense offense) {
+        // Inserts a new offense and returns its database ID
+        int offenseID;
         try {
-            ResultSet queryResult = connect.createStatement().executeQuery("SELECT * FROM driver");
-            ArrayList<Driver> drivers = new ArrayList<>();
+            String query = "INSERT INTO offense (`date`, fine, paid, officer_id, driver_id)" +
+                    " VALUES (" + "'" + offense.getDate() + "\'," + offense.getFine() + ',' + offense.getPaid() + ',' +
+                    offense.getOfficerId() + ',' + offense.getDriverId() + ");";
+            Statement stmt = connect.createStatement();
+            stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 
-            // Grab all records which have the birthday searched
-            while (queryResult.next()) {
-                drivers.add(new Driver(queryResult.getInt("id"),
-                        queryResult.getString("name"),
-                        queryResult.getByte("suspended"),
-                        queryResult.getByte("revoked"),
-                        queryResult.getDate("birthday"),
-                        queryResult.getString("license")));
+            // Get database ID, Throw exception if this fails
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()){
+                offenseID = rs.getInt(1);
             }
-
-            return drivers;
+            else {
+                throw new Exception();
+            }
         }
-
-        catch (Exception ex) {
-            return null;
+        catch (Exception e) {
+            return -1;
         }
+        return offenseID;
     }
-
-    public ArrayList<Vehicle> queryAllVehicles() {
+    public void insertCitation(Citation citation) {
+        // Inserts a new citation
         try {
-            ResultSet queryResult = connect.createStatement().executeQuery("SELECT * FROM vehicle");
-            ArrayList<Vehicle> vehicle = new ArrayList<>();
-
-            // Grab all records which have the birthday searched
-            while (queryResult.next()) {
-                vehicle.add(new Vehicle(queryResult.getInt("id"),
-                                        queryResult.getString("license"),
-                                        queryResult.getString("make"),
-                                        queryResult.getByte("stolen"),
-                                        queryResult.getByte("registered"),
-                                        queryResult.getByte("wanted"),
-                                        queryResult.getInt("id")));
-            }
-
-            return vehicle;
+            String query = "INSERT INTO citation (offense_id, vehicle_id) VALUES (" + citation.getOffenseId() + ',' + citation.getVehicleId() + ");";
+            Statement stmt = connect.createStatement();
+            stmt.executeUpdate(query);
         }
-
-        catch (Exception ex) {
-            return null;
-        }
-    }
-
-    public ArrayList<Citation> queryAllCitations() {
-        try {
-            ResultSet queryResult = connect.createStatement().executeQuery("SELECT * FROM vehicle");
-            ArrayList<Citation> citations = new ArrayList<>();
-
-            // Grab all records which have the birthday searched
-            while (queryResult.next()) {
-                citations.add(new Citation());
-            }
-
-            return citations;
-        }
-
-        catch (Exception ex) {
-            return null;
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
