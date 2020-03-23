@@ -130,4 +130,12 @@ public class Offense {
         this.driverId = driverId;
     }
 
+    public String getOffenseType() {
+        return offenseType;
+    }
+
+    public void setOffenseType(String offenseType) {
+        this.offenseType = offenseType;
+    }
+
 }
