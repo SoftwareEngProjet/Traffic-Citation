@@ -51,7 +51,7 @@ public class Main extends Application {
 
 
     //NEW CITATION BUTTONS AND TEXT FIELDS:
-    private TextField newCitationDate = new TextField();
+    private DatePicker newCitationDate = new DatePicker();
     private TextField newCitationFine = new TextField();
     private CheckBox isPaid = new CheckBox("Paid? (Check if yes.)");
     private HBox isPaidHBox = new HBox(isPaid);
