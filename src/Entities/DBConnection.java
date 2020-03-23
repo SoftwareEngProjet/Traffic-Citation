@@ -58,8 +58,8 @@ public class DBConnection {
 
     /* -- DBConnection Methods --
      * 1. Driver
-     * 2. Offense
-     * 3. Citation
+     * 2.
+     * 3.
      * 4.
      */
 
@@ -73,11 +73,11 @@ public class DBConnection {
                 return null;
 
             Driver newDriver = new Driver(queryResult.getInt("id"),
-                                          queryResult.getString("name"),
-                                          queryResult.getByte("suspended"),
-                                          queryResult.getByte("revoked"),
-                                          queryResult.getDate("birthday"),
-                                          queryResult.getString("license"));
+                    queryResult.getString("name"),
+                    queryResult.getByte("suspended"),
+                    queryResult.getByte("revoked"),
+                    queryResult.getDate("birthday"),
+                    queryResult.getString("license"));
 
             // Queries
             String ticketQuery = "SELECT * FROM ticket JOIN offense ON ticket.offense_id = offense.id WHERE offense.driver_id = '" + newDriver.getId() + "'";
@@ -89,35 +89,36 @@ public class DBConnection {
             ResultSet citationQueryResult = connect.createStatement().executeQuery(citationQuery);
             ResultSet warrantQueryResult = connect.createStatement().executeQuery(warrantQuery);
 
+
             // Create Instances if we have successful queries
             if (ticketQueryResult.next()) {
                 newDriver.getOffenses().add(new Offense(ticketQueryResult.getInt("id"),
-                                                        ticketQueryResult.getDate("date"),
-                                                        ticketQueryResult.getBigDecimal("fine"),
-                                                        ticketQueryResult.getByte("paid"),
-                                                        ticketQueryResult.getInt("officer_id"),
-                                                        ticketQueryResult.getInt("driver_id"),
-                                                        "Ticket Offense"));
+                        ticketQueryResult.getDate("date"),
+                        ticketQueryResult.getBigDecimal("fine"),
+                        ticketQueryResult.getByte("paid"),
+                        ticketQueryResult.getInt("officer_id"),
+                        ticketQueryResult.getInt("driver_id"),
+                        "Ticket Offense"));
             }
 
             if (citationQueryResult.next()) {
                 newDriver.getOffenses().add(new Offense(citationQueryResult.getInt("id"),
-                                                        citationQueryResult.getDate("date"),
-                                                        citationQueryResult.getBigDecimal("fine"),
-                                                        citationQueryResult.getByte("paid"),
-                                                        citationQueryResult.getInt("officer_id"),
-                                                        citationQueryResult.getInt("driver_id"),
-                                                        "Citation Offense"));
+                        citationQueryResult.getDate("date"),
+                        citationQueryResult.getBigDecimal("fine"),
+                        citationQueryResult.getByte("paid"),
+                        citationQueryResult.getInt("officer_id"),
+                        citationQueryResult.getInt("driver_id"),
+                        "Citation Offense"));
             }
 
             if (warrantQueryResult.next()) {
                 newDriver.getOffenses().add(new Offense(warrantQueryResult.getInt("id"),
-                                                        warrantQueryResult.getDate("date"),
-                                                        warrantQueryResult.getBigDecimal("fine"),
-                                                        warrantQueryResult.getByte("paid"),
-                                                        warrantQueryResult.getInt("officer_id"),
-                                                        warrantQueryResult.getInt("driver_id"),
-                                                        "Warrant Offense"));
+                        warrantQueryResult.getDate("date"),
+                        warrantQueryResult.getBigDecimal("fine"),
+                        warrantQueryResult.getByte("paid"),
+                        warrantQueryResult.getInt("officer_id"),
+                        warrantQueryResult.getInt("driver_id"),
+                        "Warrant Offense"));
             }
 
             return newDriver;
@@ -128,48 +129,40 @@ public class DBConnection {
         }
     }
 
-    // Offense Query Methods
     public int insertOffense(Offense offense) {
         // Inserts a new offense and returns its database ID
+        int offenseID;
         try {
-            int offenseID;
-
             String query = "INSERT INTO offense (`date`, fine, paid, officer_id, driver_id)" +
-                           " VALUES (" + "'" + offense.getDate() + "\'," + offense.getFine() + ',' +
-                           offense.getPaid() + ',' + offense.getOfficerId() + ',' + offense.getDriverId() + ")";
+                    " VALUES (" + "'" + offense.getDate() + "\'," + offense.getFine() + ',' + offense.getPaid() + ',' +
+                    offense.getOfficerId() + ',' + offense.getDriverId() + ");";
+            Statement stmt = connect.createStatement();
+            stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
 
-            Statement statement = connect.createStatement();
-            statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
-
-            // Get database ID
-            ResultSet result = statement.getGeneratedKeys();
-            if (result.next()){
-                offenseID = result.getInt(1);
-                return offenseID;
+            // Get database ID, Throw exception if this fails
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()){
+                offenseID = rs.getInt(1);
             }
-
-            else
-                return -1;
+            else {
+                throw new Exception();
+            }
         }
-
-        catch (Exception ex) {
-            ex.printStackTrace();
+        catch (Exception e) {
             return -1;
         }
+        return offenseID;
     }
 
-    // Citation Query Methods
     public void insertCitation(Citation citation) {
         // Inserts a new citation
         try {
-            String query = "INSERT INTO citation (offense_id, vehicle_id) VALUES (" + citation.getOffenseId() + ','
-                                                + citation.getVehicleId() + ")";
-            Statement statement = connect.createStatement();
-            statement.executeUpdate(query);
+            String query = "INSERT INTO citation (offense_id, vehicle_id) VALUES (" + citation.getOffenseId() + ',' + citation.getVehicleId() + ");";
+            Statement stmt = connect.createStatement();
+            stmt.executeUpdate(query);
         }
-
-        catch (Exception ex) {
-            ex.printStackTrace();
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -186,10 +179,11 @@ public class DBConnection {
             e.printStackTrace();
         }
     }
+
     public void insertDriver(Driver driver) {
         try {
             String query = "insert into `driver`(name,suspended,revoked,birthday,license) values ('" +
-                    driver.getName() + "'," + driver.getSuspended() + ',' + driver.getRevoked() + ",'" + driver.getBirthday() +
+            driver.getName() + "'," + driver.getSuspended() + ',' + driver.getRevoked() + ",'" + driver.getBirthday() +
                     "', '" + driver.getLicense() + "');";
             Statement stmt = connect.createStatement();
             stmt.executeUpdate(query);

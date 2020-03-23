@@ -20,6 +20,7 @@ import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Objects;
+import java.util.ArrayList;
 
 @Entity
 public class Offense {
@@ -129,12 +130,4 @@ public class Offense {
         this.driverId = driverId;
     }
 
-    // Offense Type
-    public String getOffenseType() {
-        return offenseType;
-    }
-
-    public void setOffenseType(String offenseType) {
-        this.offenseType = offenseType;
-    }
 }
