@@ -51,7 +51,7 @@ public class Main extends Application {
 
 
     //NEW CITATION BUTTONS AND TEXT FIELDS:
-    private TextField newCitationDate = new TextField();
+    private DatePicker newCitationDate = new DatePicker();
     private TextField newCitationFine = new TextField();
     private CheckBox isPaid = new CheckBox("Paid? (Check if yes.)");
     private HBox isPaidHBox = new HBox(isPaid);
@@ -74,7 +74,7 @@ public class Main extends Application {
     private HBox isSuspendedHBox = new HBox(isSuspended);
     private CheckBox isRevoked = new CheckBox("License Revoked? (Check if yes.) ");
     private HBox isRevokedHBox = new HBox(isRevoked);
-    private TextField newDriverBirthday = new TextField();
+    private DatePicker newDriverBirthday = new DatePicker();
     private Button newDriverSave = new Button("Save");
 
     //NEW VEHICLE BUTTONS AND TEXT FIELDS
@@ -100,8 +100,8 @@ public class Main extends Application {
 
 
     //DRIVING SCHOOL BUTTONS AND TEXT FIELDS
-    private TextField firstDay = new TextField();
-    private TextField secondDay = new TextField();
+    private DatePicker firstDay = new DatePicker();
+    private DatePicker secondDay = new DatePicker();
     private TextField schoolDriverID = new TextField();
     private Button drivingSchoolSave = new Button("Save");
 
