@@ -58,7 +58,7 @@ public class DBConnection {
 
     /* -- DBConnection Methods --
      * 1. Driver
-     * 2. 
+     * 2.
      * 3.
      * 4.
      */

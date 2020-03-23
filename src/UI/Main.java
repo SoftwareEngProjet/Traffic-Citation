@@ -408,15 +408,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         DBConnection db = new DBConnection();
 
-        Driver d = db.lookupDriverRecord(5);
-
-        System.out.println(d.getName());
-        System.out.println(d.getBirthday());
-        System.out.println(d.getId());
-        System.out.println(d.getRevoked());
-        System.out.println(d.getSuspended());
-        System.out.println(d.getLicense());
-
+        
         Application.launch();
     }
 }
