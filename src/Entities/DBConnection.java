@@ -36,7 +36,6 @@ public class DBConnection {
                     cipher.JTRDecrypt("1IEV/fKhXaElJXumYR3CdWgVPnnZzerHqmvazjhfO+U="));
         }
 
-
         catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -56,13 +55,7 @@ public class DBConnection {
         }
     }
 
-    /* -- DBConnection Methods --
-     * 1. Driver
-     * 2.
-     * 3.
-     * 4.
-     */
-
+    /* -- DBConnection Methods -- */
     //  Driver Query Methods
     public Driver lookupDriver(String licenseNumber) {
         try {
