@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="Traffic-Citation">
+    <output-path>$PROJECT_DIR$/out/artifacts/Traffic_Citation</output-path>
+    <root id="root">
+      <element id="archive" name="Traffic_Citation.jar">
+        <element id="module-output" name="Traffic-Citation" />
+      </element>
+    </root>
+  </artifact>
+</component>
