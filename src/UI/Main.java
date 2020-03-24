@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.geometry.*;
 import javafx.scene.control.*;
@@ -23,6 +24,8 @@ import java.sql.Date;
 import java.util.Calendar;
 
 import Entities.*;
+
+import javax.persistence.Table;
 
 public class Main extends Application {
     //MAIN MENU BUTTONS:
@@ -104,7 +107,7 @@ public class Main extends Application {
     private TextField schoolDriverID = new TextField();
     private Button drivingSchoolSave = new Button("Save");
 
-    private DBConnection db = new DBConnection();
+    private static DBConnection db = new DBConnection();
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -159,15 +162,57 @@ public class Main extends Application {
                 GridPane searchingPane = new GridPane();
                 Stage stage = new Stage();
 
-                searchingPane.add(showOffenses, 0, 4);
-                showOffenses.setPrefWidth(450);
+                TableColumn<Offense, Integer> id = new TableColumn<>("Offense ID");
+                id.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-                //Driver d = new lookupDriver(driverLookupSearch.getText());
+                TableColumn<Offense, Date> date = new TableColumn<>("Date");
+                date.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+                TableColumn<Offense, BigDecimal> fine = new TableColumn<>("Fine");
+                fine.setCellValueFactory(new PropertyValueFactory<>("fine"));
+
+                TableColumn<Offense, Byte> paid = new TableColumn<>("Paid");
+                paid.setCellValueFactory(new PropertyValueFactory<>("paid"));
+
+                TableColumn<String, Offense> OfficerID = new TableColumn<>("Officer ID");
+                OfficerID.setCellValueFactory(new PropertyValueFactory<>("officerId"));
+
+                TableColumn<String, Offense> DriverID = new TableColumn<>("Driver ID");
+                DriverID.setCellValueFactory(new PropertyValueFactory<>("driverId"));
+
+                TableColumn<String, Offense> offenseType = new TableColumn<>("Offense Type");
+                offenseType.setCellValueFactory(new PropertyValueFactory<>("offenseType"));
+
+
+               showOffenses.getColumns().add(offenseType);
+                showOffenses.getColumns().add(id);
+                showOffenses.getColumns().add(date);
+                showOffenses.getColumns().add(fine);
+                showOffenses.getColumns().add(paid);
+                showOffenses.getColumns().add(OfficerID);
+                showOffenses.getColumns().add(DriverID);
+
+
+              Driver d = db.lookupDriver(driverLookupSearch.getText());
+                if(d != null && d.getOffenses().size() != 0)
+                {
+                    for(Offense offense : d.getOffenses())
+                    {
+                        showOffenses.getItems().add(offense);
+
+                    }
+
+                }
+
+                VBox vbox = new VBox(showOffenses);
+                searchingPane.add(vbox, 0, 4);
+                showOffenses.setPrefWidth(500);
+
 
                 searchingPane.setVgap(5);
                 stage.setResizable(false);
                 stage.setTitle("Search");
-                stage.setScene(new Scene(searchingPane, 275, 190));
+                stage.setScene(new Scene(searchingPane, 500, 400));
                 stage.show();
             }
         });
