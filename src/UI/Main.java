@@ -44,7 +44,6 @@ public class Main extends Application {
    private TableView showOffenses = new TableView();
    //private VBox showCitationsTableVBox = new VBox(showCitationsTable);
 
-
     private TextField driverLookupSearch = new TextField();
     private Button driverLookUpButton = new Button("Search");
 
